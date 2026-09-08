@@ -3,7 +3,7 @@
 build:
 	npm run build
 
-install:
+install: build
 	./scripts/install.sh
 
 lint:
