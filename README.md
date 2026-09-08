@@ -23,8 +23,8 @@ Obsidian vault root, and copies the plugin artefacts into the vault's standard
 community-plugin directory.
 
 ```bash
-./scripts/install.sh
+make install
 ```
 
 Use `./scripts/install.sh --dry-run` to validate the vault path and preview the
-destination without copying files.
+destination without copying files. `make install` runs the normal build first.

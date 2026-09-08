@@ -1,6 +1,6 @@
 # Installer help
 
-`./scripts/install.sh` builds the plugin and copies `main.js` and
+`make install` or `./scripts/install.sh` builds the plugin and copies `main.js` and
 `manifest.json` into the selected Obsidian vault at
 `.obsidian/plugins/daily-note-key-plugin/`.
 
