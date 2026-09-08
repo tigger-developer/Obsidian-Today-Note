@@ -1,0 +1,54 @@
+#+TITLE: Foundation Review - daily-note-key-plugin
+#+STARTUP: overview
+
+* Foundation review
+
+- *Documents reviewed* :: [[file:VISION.md][Vision]] and [[file:ARCHITECTURE.md][Architecture]]
+- *Review date* :: 2026-09-08
+- *Review type* :: Authoring-context foundation self-review
+- *Result* :: FOUNDATION REVIEW: PASS
+- *Operator sign-off* :: PENDING
+- *Sign-off authority* :: Project owner
+
+** Review findings
+
+- *Purpose and architecture are separated* :: Vision describes user value,
+  scope, non-goals, and product decisions. Architecture describes host
+  boundaries, components, flows, technology, data, and trade-offs.
+- *Scope is consistent* :: Both documents describe one fixed selected note,
+  macOS/iOS Obsidian use, one keyboard command, one in-app icon, no note
+  mutation, and no network or foreseeable feature expansion.
+- *Ownership is explicit* :: Obsidian owns the vault and host interface; the
+  plugin owns settings, command, icon, and status; the project owner owns
+  manual deployment and release decisions.
+- *Security and privacy are bounded* :: No network, telemetry, secrets,
+  external files, direct filesystem access, or child processes are in the
+  foundation.
+- *Failure consequences are recorded* :: Unresolved targets produce a red
+  warning icon and no replacement note. Command feedback and path
+  representation remain explicit unresolved decisions.
+- *Feature detail is excluded* :: No acceptance criteria, test definitions,
+  implementation tasks, or feature specification were created.
+
+** Assumptions
+
+- The plugin uses Obsidian's documented public APIs and does not use Node.js or
+  Electron APIs at runtime.
+- The user selects the target from the current vault and the target filename
+  remains unchanged unless the user reconfigures the plugin.
+- Lightweight logic validation and bounded user testing are sufficient for the
+  small host-specific surface.
+
+** Unresolved decisions requiring feature-definition authority
+
+- Confirm the portable storage representation of the user-described absolute
+  path.
+- Define command feedback when the configured target cannot be opened.
+- Record the exact Obsidian version baseline at release planning.
+- Decide separately whether community-plugin publication is pursued.
+
+** Governance handback
+
+The self-review is not an independent audit and does not constitute operator
+approval. Foundation sign-off is requested from the project owner. Feature
+definition is not authorized until explicit sign-off is recorded here.
