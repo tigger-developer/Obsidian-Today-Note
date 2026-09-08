@@ -52,18 +52,15 @@ vault_root="$(cd "$vault_root" && pwd -P)"
 plugin_dir="$vault_root/.obsidian/plugins/daily-note-key-plugin"
 
 if (( dry_run )); then
-    printf 'Dry run: would build the plugin.\n'
     printf 'Dry run: would copy manifest.json and main.js to %s\n' "$plugin_dir"
     exit 0
 fi
 
-printf 'Building plugin...\n'
-(cd "$project_root" && npm run build)
-
 for artifact in manifest.json main.js; do
     artifact_path="$project_root/$artifact"
     if [[ ! -s "$artifact_path" ]]; then
-        printf 'Required build artefact is missing or empty: %s\n' "$artifact_path" >&2
+        printf 'Required plugin file is missing or empty: %s\n' "$artifact_path" >&2
+        printf 'Build the plugin first with: make build\n' >&2
         exit 1
     fi
 done

@@ -18,13 +18,17 @@ telemetry, URL-scheme, widget, template, or synchronization integration.
 
 ## Local installation
 
-Run the installer from the project root. It builds the plugin, asks for the
-Obsidian vault root, and copies the plugin artefacts into the vault's standard
-community-plugin directory.
+Build the plugin separately, then run the installer from the project root. It
+asks for the Obsidian vault root and copies the plugin artefacts into the
+vault's standard community-plugin directory.
+
+```bash
+make build
+```
 
 ```bash
 make install
 ```
 
 Use `./scripts/install.sh --dry-run` to validate the vault path and preview the
-destination without copying files. `make install` runs the normal build first.
+destination without copying files.
