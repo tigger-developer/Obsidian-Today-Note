@@ -120,6 +120,10 @@ class DailyNoteKeySettingTab extends PluginSettingTab {
 	display() {
 		const { containerEl } = this;
 		containerEl.empty();
+		const backButton = containerEl.createEl("button", { text: "Back" });
+		backButton.setAttribute("type", "button");
+		backButton.setAttribute("aria-label", "Back to Obsidian settings");
+		backButton.addEventListener("click", () => this.app.setting.close());
 
 		new Setting(containerEl)
 			.setName("Today note path")
