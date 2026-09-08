@@ -14,4 +14,17 @@ telemetry, URL-scheme, widget, template, or synchronization integration.
 - [Architecture](docs/ARCHITECTURE.md) describes the Obsidian boundary,
   technology choices, data flows, and operational ownership.
 - [Foundation review](docs/foundation-review.org) records the self-review and
-  pending project-owner sign-off.
+  project-owner sign-off.
+
+## Local installation
+
+Run the installer from the project root. It builds the plugin, asks for the
+Obsidian vault root, and copies the plugin artefacts into the vault's standard
+community-plugin directory.
+
+```bash
+./scripts/install.sh
+```
+
+Use `./scripts/install.sh --dry-run` to validate the vault path and preview the
+destination without copying files.
