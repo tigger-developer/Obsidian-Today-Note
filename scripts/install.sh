@@ -56,7 +56,7 @@ if (( dry_run )); then
     exit 0
 fi
 
-for artifact in manifest.json main.js; do
+for artifact in manifest.json main.js styles.css; do
     artifact_path="$project_root/$artifact"
     if [[ ! -s "$artifact_path" ]]; then
         printf 'Required plugin file is missing or empty: %s\n' "$artifact_path" >&2
@@ -66,5 +66,5 @@ for artifact in manifest.json main.js; do
 done
 
 mkdir -p "$plugin_dir"
-cp -f "$project_root/manifest.json" "$project_root/main.js" "$plugin_dir/"
+cp -f "$project_root/manifest.json" "$project_root/main.js" "$project_root/styles.css" "$plugin_dir/"
 printf 'Installed daily-note-key-plugin in %s\n' "$plugin_dir"

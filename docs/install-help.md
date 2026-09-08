@@ -1,14 +1,14 @@
 # Installer help
 
-`make install` runs `./scripts/install.sh`, which copies the existing `main.js` and
-`manifest.json` into the selected Obsidian vault at
+`make install` runs `./scripts/install.sh`, which copies the existing `main.js`,
+`manifest.json`, and `styles.css` into the selected Obsidian vault at
 `.obsidian/plugins/daily-note-key-plugin/`.
 
-The repository does not build or bundle the plugin. `main.js` must already
-exist before installation.
+The repository does not build or bundle the plugin. The three plugin files must
+already exist before installation.
 
 The installer asks for the vault root interactively. The path must contain an
-existing `.obsidian` directory. Existing copies of the two plugin artefacts in
+existing `.obsidian` directory. Existing copies of the three plugin artefacts in
 the destination are replaced.
 
 Options:

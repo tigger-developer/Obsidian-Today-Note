@@ -1,7 +1,15 @@
-// ABOUTME: Provides the initial Obsidian plugin lifecycle and user entry points.
-// ABOUTME: Note selection and opening behaviour will be added in the next paired slice.
+// ABOUTME: Provides the Obsidian command, ribbon icon, and note configuration.
+// ABOUTME: Uses the host file picker and public vault APIs to open one fixed note.
 
-const { Notice, Plugin, PluginSettingTab, Setting } = require("obsidian");
+const {
+	FuzzySuggestModal,
+	Notice,
+	Plugin,
+	PluginSettingTab,
+	Setting,
+	TFile,
+	setIcon,
+} = require("obsidian");
 
 const DEFAULT_SETTINGS = {
 	targetPath: "",
@@ -16,12 +24,18 @@ class DailyNoteKeyPlugin extends Plugin {
 		this.addCommand({
 			id: "open-today-note",
 			name: "Open today note",
-			callback: () => this.openTodayNote(),
+			callback: () => {
+				void this.openTodayNote();
+			},
 		});
 
-		this.addRibbonIcon("calendar", "Open today note", () => {
-			this.openTodayNote();
+		this.ribbonIconEl = this.addRibbonIcon("calendar", "Open today note", () => {
+			void this.openTodayNote();
 		});
+		this.updateRibbonStatus();
+		this.registerEvent(this.app.vault.on("create", () => this.updateRibbonStatus()));
+		this.registerEvent(this.app.vault.on("delete", () => this.updateRibbonStatus()));
+		this.registerEvent(this.app.vault.on("rename", () => this.updateRibbonStatus()));
 
 		this.addSettingTab(new DailyNoteKeySettingTab(this.app, this));
 	}
@@ -34,8 +48,66 @@ class DailyNoteKeyPlugin extends Plugin {
 		await this.saveData(this.settings);
 	}
 
-	openTodayNote() {
-		new Notice("Today note opening will be enabled in the next paired slice.");
+	getConfiguredFile() {
+		const file = this.app.vault.getAbstractFileByPath(this.settings.targetPath);
+		return file instanceof TFile ? file : null;
+	}
+
+	updateRibbonStatus() {
+		const targetFile = this.getConfiguredFile();
+		if (targetFile) {
+			setIcon(this.ribbonIconEl, "calendar");
+			this.ribbonIconEl.classList.remove("daily-note-key-missing");
+			this.ribbonIconEl.setAttribute("aria-label", "Open today note");
+			return;
+		}
+
+		setIcon(this.ribbonIconEl, "alert-triangle");
+		this.ribbonIconEl.classList.add("daily-note-key-missing");
+		this.ribbonIconEl.setAttribute(
+			"aria-label",
+			"Today note is unavailable; configure a note",
+		);
+	}
+
+	async openTodayNote() {
+		const targetFile = this.getConfiguredFile();
+		if (!targetFile) {
+			this.updateRibbonStatus();
+			new Notice("Today note is not configured or is unavailable.");
+			return;
+		}
+
+		await this.app.workspace.getLeaf(false).openFile(targetFile);
+	}
+
+	openFilePicker() {
+		new TodayNoteSuggestModal(this.app, async (file) => {
+			this.settings.targetPath = file.path;
+			await this.saveSettings();
+			this.updateRibbonStatus();
+		}).open();
+	}
+}
+
+class TodayNoteSuggestModal extends FuzzySuggestModal {
+	constructor(app, onChoose) {
+		super(app);
+		this.onChoose = onChoose;
+	}
+
+	getItems() {
+		return this.app.vault
+			.getMarkdownFiles()
+			.sort((first, second) => first.path.localeCompare(second.path));
+	}
+
+	getItemText(file) {
+		return file.path;
+	}
+
+	onChooseItem(file) {
+		void this.onChoose(file);
 	}
 }
 
@@ -51,16 +123,21 @@ class DailyNoteKeySettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName("Today note path")
-			.setDesc(
-				"The fixed vault note will be selectable here in the next paired slice.",
-			)
-			.addText((text) => {
-				text
-					.setPlaceholder("Select one note")
-					.setValue(this.plugin.settings.targetPath)
-					.onChange(async (value) => {
-						this.plugin.settings.targetPath = value;
+			.setDesc(this.plugin.settings.targetPath || "No note selected")
+			.addButton((button) => {
+				button.setButtonText("Choose note").onClick(() => {
+					this.plugin.openFilePicker();
+				});
+			})
+			.addExtraButton((button) => {
+				button
+					.setIcon("reset")
+					.setTooltip("Clear selected note")
+					.onClick(async () => {
+						this.plugin.settings.targetPath = "";
 						await this.plugin.saveSettings();
+						this.plugin.updateRibbonStatus();
+						this.display();
 					});
 			});
 	}
