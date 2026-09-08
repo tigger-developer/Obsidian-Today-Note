@@ -7,7 +7,7 @@
 - *Review date* :: 2026-09-08
 - *Review type* :: Authoring-context foundation self-review
 - *Result* :: FOUNDATION REVIEW: PASS
-- *Operator sign-off* :: PENDING
+- *Operator sign-off* :: APPROVED by project owner on 2026-09-08
 - *Sign-off authority* :: Project owner
 
 ** Review findings
@@ -49,6 +49,6 @@
 
 ** Governance handback
 
-The self-review is not an independent audit and does not constitute operator
-approval. Foundation sign-off is requested from the project owner. Feature
-definition is not authorized until explicit sign-off is recorded here.
+The self-review is not an independent audit. Foundation sign-off was approved
+by the project owner on 2026-09-08. Feature definition and paired delivery are
+now authorized within the recorded foundation boundaries.

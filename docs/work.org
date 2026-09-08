@@ -86,9 +86,9 @@ classification; it is provenance, not current state.
 - *Vision:* [[file:VISION.md][Vision - daily-note-key-plugin]]
 - *Architecture:* [[file:ARCHITECTURE.md][Architecture - daily-note-key-plugin]]
 - *Review:* [[file:foundation-review.org][Foundation review - daily-note-key-plugin]]
-- *Current status:* FOUNDATION REVIEW: PASS; operator sign-off PENDING
+- *Current status:* FOUNDATION REVIEW: PASS; operator sign-off APPROVED by project owner on 2026-09-08
 - *Sign-off authority:* Project owner
-- *Feature definition:* Not authorized until explicit foundation sign-off.
+- *Feature definition:* Authorized within the approved foundation boundaries.
 
 * Migration record
 :PROPERTIES:
