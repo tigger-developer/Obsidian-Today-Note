@@ -31,8 +31,10 @@ printf 'Obsidian vault root: '
 IFS= read -r vault_root
 case "$vault_root" in
     "~") vault_root="$HOME" ;;
-    ~/*) vault_root="$HOME/${vault_root#~/}" ;;
 esac
+if [[ "${vault_root:0:1}" == "~" && "${vault_root:1:1}" == "/" ]]; then
+    vault_root="$HOME/${vault_root:2}"
+fi
 printf '\n'
 
 if [[ ! -d "$vault_root" ]]; then
