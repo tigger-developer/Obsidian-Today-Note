@@ -1,6 +1,6 @@
 # Architecture
 
-<!-- Version: 0.1.0 | Last updated: 2026-09-08 -->
+<!-- Version: 0.2.0 | Last updated: 2026-09-08 -->
 
 ## Architectural boundary
 
@@ -40,25 +40,18 @@ The intended flow is:
 
 ## Technology choices
 
-- **Language:** TypeScript compiled to the JavaScript form required by
+- **Language:** Plain JavaScript in the single `main.js` artefact required by
   Obsidian.
 - **Host API:** Obsidian's documented public plugin, component, vault,
   file-management, command, settings, and icon/ribbon APIs only.
 - **Platforms:** macOS and iOS. Node.js/Electron APIs are excluded so that the
   plugin does not acquire a desktop-only restriction.
-- **Build tooling:** the standard Obsidian TypeScript plugin scaffold and the
-  minimum required Node.js/npm tooling are permitted for building the plugin.
-  No additional npm package is to be added when a project-owned implementation
-  or existing scaffold is sufficient. Biome and oxlint are preferred for
-  formatting and linting where their use fits the selected toolchain.
-- **Testing:** lightweight pure-logic validation and bounded user testing in
-  Obsidian are proportionate. A browser harness or new test framework is not
-  part of the foundation.
-
-Node.js/npm is a development/build dependency choice, not a plugin runtime
-service. Its exact supported release, package manager version, lockfile, and
-dependency controls belong in the implementation specification and project
-profile before implementation.
+- **Build tooling:** no project-local build or package-manager step. `main.js`
+  is the maintained plugin artefact and `oxlint` is the only selected static
+  check. Node.js and npm are not part of the project architecture.
+- **Testing:** lightweight source-level linting and bounded user testing in
+  Obsidian are proportionate. A browser harness, compiler, package manager, or
+  new test framework is not part of the foundation.
 
 ## Data and trust boundaries
 

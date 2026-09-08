@@ -19,7 +19,6 @@ project:
 standards:
     technologies:
         - JAVASCRIPT
-        - NODE
         - SHELL
         - WEB
 version: 3

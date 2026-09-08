@@ -1,17 +1,11 @@
-.PHONY: build install lint test sync
+.PHONY: install lint sync
 
-build:
-	npm run build
 
-install: build
+install:
 	./scripts/install.sh
 
 lint:
-	oxlint src/main.ts
-	biome check src/main.ts esbuild.config.mjs
-
-test:
-	npm run typecheck
+	oxlint main.js
 
 sync:
 	git add -A

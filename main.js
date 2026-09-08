@@ -1,20 +1,16 @@
 // ABOUTME: Provides the initial Obsidian plugin lifecycle and user entry points.
 // ABOUTME: Note selection and opening behaviour will be added in the next paired slice.
 
-import { type App, Notice, Plugin, PluginSettingTab, Setting } from "obsidian";
+const { Notice, Plugin, PluginSettingTab, Setting } = require("obsidian");
 
-interface DailyNoteKeySettings {
-	targetPath: string;
-}
-
-const DEFAULT_SETTINGS: DailyNoteKeySettings = {
+const DEFAULT_SETTINGS = {
 	targetPath: "",
 };
 
-export default class DailyNoteKeyPlugin extends Plugin {
-	settings: DailyNoteKeySettings = DEFAULT_SETTINGS;
+class DailyNoteKeyPlugin extends Plugin {
+	settings = { ...DEFAULT_SETTINGS };
 
-	async onload(): Promise<void> {
+	async onload() {
 		await this.loadSettings();
 
 		this.addCommand({
@@ -30,35 +26,33 @@ export default class DailyNoteKeyPlugin extends Plugin {
 		this.addSettingTab(new DailyNoteKeySettingTab(this.app, this));
 	}
 
-	async loadSettings(): Promise<void> {
+	async loadSettings() {
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
 	}
 
-	async saveSettings(): Promise<void> {
+	async saveSettings() {
 		await this.saveData(this.settings);
 	}
 
-	private openTodayNote(): void {
-		new Notice("Today note opening will be enabled in the next slice.");
+	openTodayNote() {
+		new Notice("Today note opening will be enabled in the next paired slice.");
 	}
 }
 
 class DailyNoteKeySettingTab extends PluginSettingTab {
-	plugin: DailyNoteKeyPlugin;
-
-	constructor(app: App, plugin: DailyNoteKeyPlugin) {
+	constructor(app, plugin) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
 
-	display(): void {
+	display() {
 		const { containerEl } = this;
 		containerEl.empty();
 
 		new Setting(containerEl)
 			.setName("Today note path")
 			.setDesc(
-				"The fixed vault note will be selectable here in the next slice.",
+				"The fixed vault note will be selectable here in the next paired slice.",
 			)
 			.addText((text) => {
 				text
@@ -71,3 +65,5 @@ class DailyNoteKeySettingTab extends PluginSettingTab {
 			});
 	}
 }
+
+module.exports = DailyNoteKeyPlugin;
