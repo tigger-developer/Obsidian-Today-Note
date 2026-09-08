@@ -25,12 +25,16 @@ class DailyNoteKeyPlugin extends Plugin {
 			id: "open-today-note",
 			name: "Open today note",
 			callback: () => {
-				void this.openTodayNote();
+				void this.openTodayNote().catch(() => {
+					new Notice("Could not open today note.");
+				});
 			},
 		});
 
 		this.ribbonIconEl = this.addRibbonIcon("calendar", "Open today note", () => {
-			void this.openTodayNote();
+			void this.openTodayNote().catch(() => {
+				new Notice("Could not open today note.");
+			});
 		});
 		this.updateRibbonStatus();
 		this.registerEvent(this.app.vault.on("create", () => this.updateRibbonStatus()));
@@ -107,7 +111,9 @@ class TodayNoteSuggestModal extends FuzzySuggestModal {
 	}
 
 	onChooseItem(file) {
-		void this.onChoose(file);
+		void this.onChoose(file).catch(() => {
+			new Notice("Could not save today note selection.");
+		});
 	}
 }
 

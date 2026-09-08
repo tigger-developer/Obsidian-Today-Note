@@ -60,7 +60,7 @@ for artifact in manifest.json main.js styles.css; do
     artifact_path="$project_root/$artifact"
     if [[ ! -s "$artifact_path" ]]; then
         printf 'Required plugin file is missing or empty: %s\n' "$artifact_path" >&2
-        printf 'Build the plugin first with: make build\n' >&2
+        printf 'Place the maintained plugin file in the project root before installing.\n' >&2
         exit 1
     fi
 done
