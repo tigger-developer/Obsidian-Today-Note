@@ -78,6 +78,18 @@ classification; it is provenance, not current state.
 
 * Work items
 
+** REVIEW W001 - open one fixed note from command and icon :feature:
+:PROPERTIES:
+:CUSTOM_ID: w001
+:PRIORITY: P1
+:SOURCE: operator
+:CREATED: 2026-09-08
+:END:
+
+- *Specification:* [[file:../specs/001-today-note-access/spec.org][W001 - open one fixed note from command and icon]]
+- *Validation:* [[file:../specs/001-today-note-access/validation.org][W001 - validation record]]
+- *Current status:* Paired implementation accepted in part; host validation remains recorded as pending where not explicitly observed.
+
 * Foundation - daily-note-key-plugin
 :PROPERTIES:
 :CUSTOM_ID: project-foundation

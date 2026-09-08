@@ -1,0 +1,97 @@
+#+TITLE: W001 - Validation record
+#+STARTUP: overview
+
+* Validation entries
+
+** RT-001 - settings selection and persistence :user:
+:PROPERTIES:
+:STATUS: PENDING
+:END:
+
+- *Requirement* :: FR-001 - select and persist one target note
+- *Expected result* :: The chosen file is displayed and remains selected.
+- *Procedure* :: Choose a Markdown file, leave and reopen plugin settings.
+- *Environment* :: Obsidian host; platform and version not recorded.
+- *Observed result* :: The operator reported that the note can be defined and
+  that the file picker works well.
+- *Status* :: PENDING for explicit persistence-across-reload evidence.
+
+** RT-002 - command opens selected note :user:
+:PROPERTIES:
+:STATUS: PENDING
+:END:
+
+- *Requirement* :: FR-002 - open the configured target
+- *Expected result* :: Obsidian opens the selected file from the configured
+  hotkey.
+- *Environment* :: Obsidian host; platform and version not recorded.
+- *Observed result* :: The operator reported that a hotkey can be defined; the
+  earlier implementation still showed a placeholder notice.
+- *Status* :: PENDING for current implementation evidence.
+
+** RT-003 - icon opens selected note :user:
+:PROPERTIES:
+:STATUS: PENDING
+:END:
+
+- *Requirement* :: FR-003 - provide the same action from the ribbon icon
+- *Expected result* :: The icon opens the selected file.
+- *Environment* :: Obsidian host; platform and version not recorded.
+- *Observed result* :: No explicit current observation recorded.
+- *Status* :: PENDING.
+
+** RT-004 - unavailable target warning :user:
+:PROPERTIES:
+:STATUS: PENDING
+:END:
+
+- *Requirement* :: FR-004 - expose unavailable-target state
+- *Expected result* :: The icon becomes red with a warning glyph and no
+  replacement file is created.
+- *Environment* :: Obsidian host; platform and version not recorded.
+- *Observed result* :: No explicit current observation recorded.
+- *Status* :: PENDING.
+
+** RT-005 - settings Back button :user:
+:PROPERTIES:
+:STATUS: PASS
+:END:
+
+- *Requirement* :: FR-005 - return from plugin settings
+- *Expected result* :: The plugin settings view closes and Obsidian settings
+  navigation is restored.
+- *Environment* :: Obsidian host; platform and version not recorded.
+- *Observed result* :: The operator reported: "it works - accepted" after the
+  Back button slice.
+- *Tester* :: Project owner
+- *Revision* :: 43f113a - add settings back button
+- *Status* :: PASS
+
+** UT-001 - plain JavaScript static check :one-off:
+:PROPERTIES:
+:STATUS: PASS
+:END:
+
+- *Requirement* :: FR-006 - preserve the minimal offline boundary
+- *Observed result* :: `oxlint main.js` exited 0.
+- *Environment* :: Local repository tooling on 2026-09-08.
+- *Revision* :: c49d09a - open selected note from picker
+- *Status* :: PASS
+
+** OT-001 - isolated installation copy :one-off:
+:PROPERTIES:
+:STATUS: PASS
+:END:
+
+- *Requirement* :: Deployment boundary
+- *Observed result* :: `manifest.json`, `main.js`, and `styles.css` were copied
+  into an isolated `.obsidian/plugins/daily-note-key-plugin/` directory.
+- *Environment* :: Isolated temporary Obsidian-shaped vault on 2026-09-08.
+- *Revision* :: c49d09a - open selected note from picker
+- *Status* :: PASS
+
+* Record status
+
+Current validation is incomplete because RT-001 through RT-004 lack explicit
+current host observations. The recorded RT-005 acceptance applies to the Back
+button only.

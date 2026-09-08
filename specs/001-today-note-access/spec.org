@@ -1,0 +1,158 @@
+#+TITLE: W001 - Open one fixed note from command and icon
+#+STARTUP: overview
+
+* Summary
+
+- *Outcome* :: A user selects one fixed Markdown note and opens it through an
+  Obsidian command/hotkey or in-app icon.
+- *Before* :: The plugin exposed a configuration shell and a placeholder
+  notice.
+- *After* :: The plugin provides note selection, persisted configuration,
+  opening, unavailable-target status, and settings back navigation.
+- *Unchanged boundary* :: The plugin does not create or edit note content and
+  has no network, telemetry, date logic, or Node/npm runtime dependency.
+- *Evidence state* :: Static checks pass; host interaction is partly validated
+  by the operator and partly pending explicit observation.
+- *Next step* :: Record the operator's remaining host validation and closure
+  decision.
+
+* Context and scope
+
+The plugin provides quick access to one user-selected, undated Markdown file in
+the current Obsidian vault. The filename remains fixed until the user selects a
+different file.
+
+In scope:
+
+- selecting one Markdown file through an Obsidian searchable file picker;
+- storing the selected file path in plugin data;
+- opening the selected file through the command/hotkey and ribbon icon;
+- showing a red warning icon when the configured target is unavailable; and
+- providing a Back button inside the plugin settings view.
+
+Out of scope:
+
+- Obsidian Daily Notes or date-based lookup;
+- note creation, renaming, templates, or content mutation;
+- multiple configured notes;
+- operating-system widgets, URL schemes, synchronization, network access, or
+  telemetry; and
+- Node.js/npm build or runtime dependencies.
+
+* Authorities and constraints
+
+- *Product authority* :: [[../../docs/VISION.md][Project Vision]]
+- *Architecture authority* :: [[../../docs/ARCHITECTURE.md][Project Architecture]]
+- *Implementation boundary* :: Obsidian public plugin, vault, workspace,
+  settings, modal, and UI APIs.
+- *Deployment boundary* :: The project owner's copy-only installer places
+  `main.js`, `manifest.json`, and `styles.css` in the user's vault.
+
+* Requirements
+
+** FR-001 - select and persist one target note
+
+The settings view shall let the user search the current vault's Markdown files,
+choose one file, and persist its vault path in plugin data. Clearing the choice
+shall leave no configured target.
+
+** FR-002 - open the configured target
+
+When a configured target resolves to a Markdown file, the command exposed to
+Obsidian shall open that file in Obsidian's standard workspace interface.
+
+** FR-003 - provide the same action from the ribbon icon
+
+The in-app ribbon icon shall invoke the same target-opening action as the
+command. It shall be available on macOS and iOS through Obsidian's interface.
+
+** FR-004 - expose unavailable-target state
+
+When the configured path is empty or does not resolve to a Markdown file, the
+ribbon icon shall use a red warning state and the plugin shall not create or
+modify a replacement note.
+
+** FR-005 - return from plugin settings
+
+The plugin settings view shall provide a Back button that returns the user to
+Obsidian's settings navigation.
+
+** FR-006 - preserve the minimal offline boundary
+
+The plugin shall contain no Node.js/npm runtime or build artefact dependency,
+no network or telemetry behaviour, and no direct filesystem access outside
+Obsidian's public vault APIs.
+
+* Test definitions
+
+** RT-001 - settings selection and persistence
+
+- *Category* :: User test
+- *Requirement* :: FR-001 - select and persist one target note
+- *Procedure* :: Choose a Markdown file, leave and reopen plugin settings, and
+  inspect the displayed selected path.
+- *Expected result* :: The chosen file is displayed and remains selected.
+
+** RT-002 - command opens selected note
+
+- *Category* :: User test
+- *Requirement* :: FR-002 - open the configured target
+- *Procedure* :: Assign an Obsidian hotkey to the command and invoke it.
+- *Expected result* :: Obsidian opens the selected file.
+
+** RT-003 - icon opens selected note
+
+- *Category* :: User test
+- *Requirement* :: FR-003 - provide the same action from the ribbon icon
+- *Procedure* :: Tap or click the in-app icon.
+- *Expected result* :: Obsidian opens the selected file.
+
+** RT-004 - unavailable target warning
+
+- *Category* :: User test
+- *Requirement* :: FR-004 - expose unavailable-target state
+- *Procedure* :: Rename or delete the configured file.
+- *Expected result* :: The icon becomes red with a warning glyph and no
+  replacement file is created.
+
+** RT-005 - settings Back button
+
+- *Category* :: User test
+- *Requirement* :: FR-005 - return from plugin settings
+- *Procedure* :: Open plugin settings and press Back.
+- *Expected result* :: The plugin settings view closes and Obsidian settings
+  navigation is restored.
+
+** UT-001 - plain JavaScript static check
+
+- *Category* :: Automated one-off check
+- *Requirement* :: FR-006 - preserve the minimal offline boundary
+- *Procedure* :: Run the repository's oxlint check against `main.js`.
+- *Expected result* :: The check exits successfully.
+
+** OT-001 - isolated installation copy
+
+- *Category* :: One-off operational test
+- *Requirement* :: Deployment boundary
+- *Procedure* :: Install into an isolated directory containing `.obsidian`.
+- *Expected result* :: The installer copies the three plugin artefacts into
+  `.obsidian/plugins/daily-note-key-plugin/`.
+
+* Solution design
+
+`main.js` uses Obsidian's public `FuzzySuggestModal` to present Markdown files,
+`getAbstractFileByPath` and `TFile` to resolve the selected target, and
+`WorkspaceLeaf.openFile` to open it. The command and ribbon icon share one
+opening method. Vault lifecycle events refresh the warning state. The settings
+Back button is a native control in `PluginSettingTab.containerEl` that closes
+the host settings controller.
+
+`styles.css` provides only the red unavailable-target state. The installer is a
+separate Bash copy operation and does not compile or bundle the plugin.
+
+* Delivery handoff
+
+The accepted implementation is in `main.js`, `styles.css`, and
+`scripts/install.sh`. No automated browser harness or persistent behavioural
+test suite is justified for this small host-specific feature. The remaining
+host tests require the operator's macOS and iOS observations.
