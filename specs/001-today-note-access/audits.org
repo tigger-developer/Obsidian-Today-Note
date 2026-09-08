@@ -1,0 +1,30 @@
+#+TITLE: W001 - Audit record
+#+STARTUP: overview
+
+* Implementation audit
+
+- *Gate* :: Paired change-scoped implementation review
+- *Revision* :: 5a4e069 - report plugin action failures
+- *Context* :: Authoring context
+- *Audit* :: `audit-code`
+- *Verdict* :: PASS
+
+** Findings
+
+- *[ADVISORY] host settings close integration* :: The Back button calls
+  Obsidian's host settings controller through `this.app.setting.close()`.
+  Public documentation for this specific navigation method was not located;
+  retain macOS and iOS user validation for the host integration.
+- *[ADVISORY] host interaction coverage* :: File-picker selection, command and
+  icon opening, and unavailable-target presentation remain user-test evidence,
+  not automated regression evidence, which is proportionate for this small
+  host-specific feature.
+
+** Review basis
+
+- The implementation was checked against the W001 specification, project
+  Vision and Architecture, JavaScript, Shell, and general coding standards.
+- `oxlint main.js`, `bash -n scripts/install.sh`, `shellcheck scripts/install.sh`,
+  and `git diff --check` passed on the audited revision.
+- The review was advisory and did not constitute independent audit or operator
+  approval.
