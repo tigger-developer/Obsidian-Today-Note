@@ -3,7 +3,7 @@
   "name": "Daily Note Key",
   "version": "1.0.1",
   "minAppVersion": "1.0.0",
-  "description": "Open one fixed, user-selected note from a keyboard command or in-app icon.",
+  "description": "This is a very simple Obsidian plugin: a ribbon button and a configurable keyboard shortcut that open one pre-selected note. That is all.",
   "author": "Taḋg",
   "isDesktopOnly": false
 }
