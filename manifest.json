@@ -1,7 +1,7 @@
 {
   "id": "today-note-custom-hotkey",
   "name": "Daily Note Key",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "minAppVersion": "1.0.0",
   "description": "Open one fixed, user-selected note from a keyboard command or in-app icon.",
   "author": "Taḋg",

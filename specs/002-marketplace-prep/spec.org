@@ -11,6 +11,9 @@ This is a *paired skeleton*, expanded as the operator authorizes each slice.
   keep GitHub repository =tigger-developer/Obsidian-Today-Note=; group marketplace
   preparation here; update README and prepare manifest and =main.js=.
 - Entry filename :: The operator explicitly confirmed *keep main.js*.
+- Release decision, 2026-09-16 :: The operator selected plugin version =1.0.1=
+  and authorized committing, pushing, and creating its GitHub release with
+  the three Obsidian artefacts. Community-directory submission remains separate.
 - Ribbon decision, 2026-09-16 :: The operator confirmed "ok the ribbon is fine
   for the icon. tested, it works fine". Retain the existing ribbon action;
   no additional document-canvas button or toggle is needed. The result is
@@ -27,13 +30,15 @@ This is a *paired skeleton*, expanded as the operator authorizes each slice.
 - Align the *manifest and installer directory* with the chosen plugin ID.
 - Write a *user-facing README* with setup, opening, missing-note behaviour,
   privacy, installation, and the implications for existing local installations.
-- Retain the existing display name =Daily Note Key=, version =0.1.0=, and
-  command suffix =open-today-note=.
+- Retain display name =Daily Note Key= and command suffix =open-today-note=.
+  The original preparation version =0.1.0= is superseded by the operator's
+  release choice =1.0.1=.
 - Keep =main.js= as the maintained entry artefact. Preparing it means inspecting
   and linting the current source; no runtime change is required for an ID rename.
 - Preserve the one-note behaviour, portable host APIs, and no-Node/npm tooling.
-- Do not publish a release, submit the listing, or install into a real vault
-  as part of this preparation slice.
+- The initial preparation slice excluded publication. The operator subsequently
+  authorized the GitHub release; submitting the community listing and installing
+  into a real vault remain outside this slice.
 
 * Acceptance criteria for the current slice
 
