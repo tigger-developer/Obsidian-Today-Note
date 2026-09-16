@@ -3,9 +3,9 @@
 This is a very simple Obsidian plugin: a ribbon button and a configurable
 keyboard shortcut that open one pre-selected note. That is all.
 
-The note can be any Markdown note in the vault. The developer uses it for a
-"today" note, which explains the name; the plugin has no connection to Obsidian's
-Daily Notes and performs no date-based lookup or note creation.
+The note can be any Markdown note in the vault. I use this for my "today" note,
+which is always the same file (not to be confused with daily notes), hence the
+name.
 
 The plugin ID is `today-note-custom-hotkey`. It is intended for macOS and iOS.
 The plugin does not create or modify notes, and has no network,
