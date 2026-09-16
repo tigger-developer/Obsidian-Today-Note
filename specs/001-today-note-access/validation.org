@@ -31,14 +31,21 @@
 
 ** RT-003 - icon opens selected note :user:
 :PROPERTIES:
-:STATUS: PENDING
+:STATUS: PASS
 :END:
 
 - *Requirement* :: FR-003 - provide the same action from the ribbon icon
 - *Expected result* :: The icon opens the selected file.
 - *Environment* :: Obsidian host; platform and version not recorded.
-- *Observed result* :: No explicit current observation recorded.
-- *Status* :: PENDING.
+- *Previous result* :: PENDING; no explicit observation had been recorded.
+- *Observed result, 2026-09-16* :: The operator reported: "ok the ribbon is
+  fine for the icon. tested, it works fine". Ribbon placement and the opening
+  action are accepted. The test followed discussion of macOS visibility and
+  iOS ribbon access; the tested device, app version, and deployed revision
+  were not explicitly identified.
+- *Tester* :: Project owner
+- *Status* :: PASS for the reported ribbon test; not a claim of separate
+  validation on both platforms.
 
 ** RT-004 - unavailable target warning :user:
 :PROPERTIES:
@@ -92,6 +99,7 @@
 
 * Record status
 
-Current validation is incomplete because RT-001 through RT-004 lack explicit
-current host observations. The recorded RT-005 acceptance applies to the Back
-button only.
+Current validation still lacks the outstanding evidence for RT-001 - settings
+persistence, RT-002 - hotkey opening, and RT-004 - unavailable-target warning.
+RT-003 - ribbon opening was accepted on 2026-09-16. The recorded RT-005
+acceptance applies to the Back button only.

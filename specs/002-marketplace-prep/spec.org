@@ -11,6 +11,10 @@ This is a *paired skeleton*, expanded as the operator authorizes each slice.
   keep GitHub repository =tigger-developer/Obsidian-Today-Note=; group marketplace
   preparation here; update README and prepare manifest and =main.js=.
 - Entry filename :: The operator explicitly confirmed *keep main.js*.
+- Ribbon decision, 2026-09-16 :: The operator confirmed "ok the ribbon is fine
+  for the icon. tested, it works fine". Retain the existing ribbon action;
+  no additional document-canvas button or toggle is needed. The result is
+  recorded in [[file:../001-today-note-access/validation.org][W001 - ribbon opening validation]].
 - Baseline :: [[file:../../docs/VISION.md][Vision]],
   [[file:../../docs/ARCHITECTURE.md][Architecture]], and
   [[file:../001-today-note-access/spec.org][W001 - fixed-note access]].
@@ -97,7 +101,9 @@ not evidence of publication readiness or authorization to publish.
 - Add the MIT licence file required by the existing foundation decision.
 - Establish the minimum Obsidian version and validate on macOS and iOS.
   The current =minAppVersion= value =1.0.0= remains unverified.
-- Finish the outstanding W001 host observations.
+- Finish the outstanding W001 observations for settings persistence, hotkey
+  opening, and missing-target warnings. Ribbon placement and opening have
+  operator acceptance; individual platform/version coverage remains unspecified.
 - Review the existing settings Back button's =app.setting.close()= API usage.
 - Reconcile older foundation wording about publication, settings ownership,
   and copy-only deployment before closing marketplace preparation.
