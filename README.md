@@ -3,13 +3,8 @@
 This is a very simple Obsidian plugin: a ribbon button and a configurable
 keyboard shortcut that open one pre-selected note. That is all.
 
-The note can be any Markdown note in the vault. The name comes from the typical
-use case, a single "today" note that is always the same file. It is not an
-Obsidian daily note and has no date-based behaviour.
-
-The plugin ID is `today-note-custom-hotkey`. It is intended for macOS and iOS.
-The plugin does not create or modify notes, and has no network,
-telemetry, URL-scheme, widget, template, or synchronization integration.
+The note can be any Markdown note in the vault. I use this for my "today" note, 
+which is always the same file (not to be confused with daily notes), hence the name.
 
 ## Use
 
