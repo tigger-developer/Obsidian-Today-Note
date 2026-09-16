@@ -1,7 +1,7 @@
 {
   "id": "today-note-custom-hotkey",
   "name": "Daily Note Key",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "minAppVersion": "1.13.0",
   "description": "A ribbon button and a configurable keyboard shortcut that open one pre-selected note. That is all.",
   "author": "Tadhg O'Brien",
