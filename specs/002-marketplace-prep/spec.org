@@ -14,6 +14,10 @@ This is a *paired skeleton*, expanded as the operator authorizes each slice.
 - Release decision, 2026-09-16 :: The operator selected plugin version =1.0.1=
   and authorized committing, pushing, and creating its GitHub release with
   the three Obsidian artefacts. Community-directory submission remains separate.
+- Public description, 2026-09-16 :: The operator requested clear README and
+  repository About text: one ribbon button and a configurable shortcut open
+  any pre-selected Markdown note. "Today" describes the developer's use case,
+  not a date-based feature.
 - Ribbon decision, 2026-09-16 :: The operator confirmed "ok the ribbon is fine
   for the icon. tested, it works fine". Retain the existing ribbon action;
   no additional document-canvas button or toggle is needed. The result is

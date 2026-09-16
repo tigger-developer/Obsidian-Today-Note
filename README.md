@@ -1,10 +1,14 @@
 # Daily Note Key
 
-`today-note-custom-hotkey` opens one fixed, user-selected Obsidian vault note from
-a configurable keyboard shortcut or a small in-app icon on macOS and iOS.
+This is a very simple Obsidian plugin: a ribbon button and a configurable
+keyboard shortcut that open one pre-selected note. That is all.
 
-The target is not an Obsidian Daily Note: it is one undated file whose filename
-does not change. The plugin does not create or modify notes, and has no network,
+The note can be any Markdown note in the vault. The developer uses it for a
+"today" note, which explains the name; the plugin has no connection to Obsidian's
+Daily Notes and performs no date-based lookup or note creation.
+
+The plugin ID is `today-note-custom-hotkey`. It is intended for macOS and iOS.
+The plugin does not create or modify notes, and has no network,
 telemetry, URL-scheme, widget, template, or synchronization integration.
 
 ## Use
