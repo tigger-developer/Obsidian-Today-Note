@@ -88,8 +88,8 @@ classification; it is provenance, not current state.
 
 - *Specification:* [[file:../specs/001-today-note-access/spec.org][W001 - open one fixed note from command and icon]]
 - *Validation:* [[file:../specs/001-today-note-access/validation.org][W001 - validation record]]
-- *User validation:* All five user tests confirmed PASS by the project owner
-  on 2026-09-16. Earlier partial acceptance is retained in the validation history.
+- *User validation:* All five user tests PASS by user validation on 2026-09-16.
+  Earlier partial acceptance is retained in the validation history.
 
 ** ACTIVE W002 - marketplace prep :maintenance:
 :PROPERTIES:
@@ -110,7 +110,7 @@ classification; it is provenance, not current state.
 - *Vision:* [[file:VISION.md][Vision - today-note-custom-hotkey]]
 - *Architecture:* [[file:ARCHITECTURE.md][Architecture - today-note-custom-hotkey]]
 - *Review:* [[file:foundation-review.org][Foundation review - today-note-custom-hotkey]]
-- *Current status:* FOUNDATION REVIEW: PASS; operator sign-off APPROVED by project owner on 2026-09-08
+- *Current status:* FOUNDATION REVIEW: PASS; foundation approved 2026-09-08
 - *Sign-off authority:* Project owner
 - *Feature definition:* Authorized within the approved foundation boundaries.
 

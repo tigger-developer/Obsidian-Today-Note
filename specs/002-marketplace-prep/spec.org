@@ -5,46 +5,46 @@
 * Objective and authority
 
 Prepare the existing one-note plugin for the Obsidian community directory.
-This is a *paired skeleton*, expanded as the operator authorizes each slice.
+This is a *paired skeleton*, expanded as each slice is authorized.
 
-- Operator decisions, 2026-09-16 :: Use plugin ID =today-note-custom-hotkey=;
-  keep GitHub repository =tigger-developer/Obsidian-Today-Note=; group marketplace
-  preparation here; update README and prepare manifest and =main.js=.
-- Entry filename :: The operator explicitly confirmed *keep main.js*.
-- Author identity :: The operator specified =Tadhg O'Brien= throughout project
-  attribution, including the manifest, README and MIT copyright notice.
-- Release decision, 2026-09-16 :: The operator selected plugin version =1.0.1=
-  and authorized committing, pushing, and creating its GitHub release with
-  the three Obsidian artefacts. Community-directory submission remains separate.
-- Public description, 2026-09-16 :: The operator requested clear README and
-  repository About text: one ribbon button and a configurable shortcut open
-  any pre-selected Markdown note. "Today" describes the developer's use case,
-  not a date-based feature.
-- Ribbon decision, 2026-09-16 :: The operator confirmed "ok the ribbon is fine
-  for the icon. tested, it works fine". Retain the existing ribbon action;
-  no additional document-canvas button or toggle is needed. The result is
-  recorded in [[file:../001-today-note-access/validation.org][W001 - ribbon opening validation]].
+- Scope decisions, 2026-09-16 :: The plugin ID is =today-note-custom-hotkey=;
+  the GitHub repository =tigger-developer/Obsidian-Today-Note= is retained;
+  marketplace preparation is grouped in this work item; the README, manifest,
+  and =main.js= are prepared here.
+- Entry filename :: =main.js= is retained as the entry artefact.
+- Author attribution :: Project attribution records =Tadhg O'Brien= in the
+  manifest, README and MIT copyright notice.
+- Release decision, 2026-09-16 :: Plugin version =1.0.1= is committed, pushed,
+  and published as a GitHub release carrying the three Obsidian artefacts.
+  Community-directory submission remains a separate decision.
+- Public description, 2026-09-16 :: The README and repository About text state
+  that one ribbon button and a configurable shortcut open any pre-selected
+  Markdown note. "Today" names the typical use case, not a date-based feature.
+- Ribbon decision, 2026-09-16 :: The existing ribbon action is retained; no
+  additional document-canvas button or toggle is required. The supporting
+  result is recorded in [[file:../001-today-note-access/validation.org][W001 - ribbon opening validation]].
 - Baseline :: [[file:../../docs/VISION.md][Vision]],
   [[file:../../docs/ARCHITECTURE.md][Architecture]], and
   [[file:../001-today-note-access/spec.org][W001 - fixed-note access]].
-- History :: The former ID was =daily-note-key-plugin=. The ID edits began
-  before the operator requested this skeleton; this record does not imply
-  that a skeleton existed before those edits.
+- History :: The former ID was =daily-note-key-plugin=. The ID edits preceded
+  this specification; this record does not imply that a skeleton existed
+  before those edits.
 
 * Current slice
 
-- Attestation decision, 2026-09-16 :: Operator requested a workflow modelled on
-  =../obsidian-ios-tts/.github/workflows/attest-release.yml=. Only =main.js=,
-  =manifest.json=, and =styles.css= may be release attachments. =LICENSE=
-  remains in the repository. Use explicit dispatch, pinned actions, and exact
-  comparison of checked-out, tagged, and downloaded files before signing.
+- Attestation decision, 2026-09-16 :: The release workflow follows the
+  attest-release workflow pattern of a companion Obsidian project. Only
+  =main.js=, =manifest.json=, and =styles.css= may be release attachments.
+  =LICENSE= remains in the repository. Use explicit dispatch, pinned actions,
+  and exact comparison of checked-out, tagged, and downloaded files before
+  signing.
   Refuse extra assets, invalid versions, draft releases, and mismatched bytes.
   Do not rewrite release tags or upload additional release files.
-- Automatic-release decision, 2026-09-16 :: The operator subsequently requested
-  patch increments and automatic attestation on pushes. This supersedes the
-  manual-only trigger above. Each push to =master= publishes one next-patch
-  release, including documentation-only pushes; a multi-commit push publishes
-  once. A version commit and annotated tag are atomically pushed with the
+- Automatic-release decision, 2026-09-16 :: Patch increments and automatic
+  attestation run on pushes. This supersedes the manual-only trigger above.
+  Each push to =master= publishes one next-patch release, including
+  documentation-only pushes; a multi-commit push publishes once.
+  A version commit and annotated tag are atomically pushed with the
   repository's =GITHUB_TOKEN=, preventing recursive push-triggered runs.
   A separate dependent job checks out that tag and attests its three assets.
   Manual dispatch remains available for existing releases. Jobs are serialized;
@@ -55,14 +55,14 @@ This is a *paired skeleton*, expanded as the operator authorizes each slice.
 - Write a *user-facing README* with setup, opening, missing-note behaviour,
   privacy, installation, and the implications for existing local installations.
 - Retain display name =Daily Note Key= and command suffix =open-today-note=.
-  The original preparation version =0.1.0= is superseded by the operator's
-  release choice =1.0.1=.
+  The original preparation version =0.1.0= is superseded by the released
+  version =1.0.1=.
 - Keep =main.js= as the maintained entry artefact. Preparing it means inspecting
   and linting the current source; no runtime change is required for an ID rename.
 - Preserve the one-note behaviour, portable host APIs, and no-Node/npm tooling.
-- The initial preparation slice excluded publication. The operator subsequently
-  authorized the GitHub release; submitting the community listing and installing
-  into a real vault remain outside this slice.
+- The initial preparation slice excluded publication. The GitHub release was
+  subsequently authorized; submitting the community listing and installing into
+  a real vault remain outside this slice.
 
 * Acceptance criteria for the current slice
 
@@ -152,10 +152,10 @@ workflow's pinned checkout and attest actions are reused. Attestations are
 stored by GitHub separately from release attachments; storage-record creation
 is disabled. Hosted-runner temporary storage holds downloaded comparison files.
 
-The current =1.0.1= manifest attachment was updated after tagging at the
-operator's request. It differs from the tagged manifest description and must
-be rejected. Resolving that discrepancy requires a subsequent release or an
-explicitly authorized tag change, not a weakened comparison.
+The current =1.0.1= manifest attachment was updated after tagging. It differs
+from the tagged manifest description and must be rejected. Resolving that
+discrepancy requires a subsequent release or an explicitly authorized tag
+change, not a weakened comparison.
 
 ** Existing installation compatibility
 
@@ -170,19 +170,19 @@ dependencies, network calls, note writes, or access permissions.
 These assessment items are retained here for subsequent paired work; they are
 not evidence of publication readiness or authorization to publish.
 
-- MIT licence :: Added the root =LICENSE= file on 2026-09-16 under operator
-  instruction, implementing the existing foundation decision.
+- MIT licence :: The root =LICENSE= file was added on 2026-09-16, implementing
+  the existing foundation decision.
 - Establish the minimum Obsidian version and validate on macOS and iOS.
   The current =minAppVersion= value =1.0.0= remains unverified.
-- W001 user tests :: All marked PASS on the operator's confirmation of
-  2026-09-16; see [[file:../001-today-note-access/validation.org][W001 - validation record]].
+- W001 user tests :: All recorded PASS by user validation on 2026-09-16; see
+  [[file:../001-today-note-access/validation.org][W001 - validation record]].
   Individual platform/version coverage remains unspecified.
 - Review the existing settings Back button's =app.setting.close()= API usage.
 - Reconcile older foundation wording about publication, settings ownership,
   and copy-only deployment before closing marketplace preparation.
 - Prepare a version-matched GitHub release with the three attached artefacts,
   verify name/ID availability, and address the community directory scan.
-- Obtain operator release/submission and closure decisions.
+- Obtain the release, community-submission, and closure decisions.
 
 * Evidence
 

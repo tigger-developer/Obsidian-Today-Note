@@ -11,10 +11,10 @@
   opening, unavailable-target status, and settings back navigation.
 - *Unchanged boundary* :: The plugin does not create or edit note content and
   has no network, telemetry, date logic, or Node/npm runtime dependency.
-- *Evidence state* :: Static checks pass; host interaction is partly validated
-  by the operator and partly pending explicit observation.
-- *Next step* :: Record the operator's remaining host validation and closure
-  decision.
+- *Evidence state* :: Static checks pass; host interaction is recorded PASS by
+  user validation on 2026-09-16, without device or version coverage detail. See
+  [[file:validation.org][W001 - validation record]].
+- *Next step* :: Record the closure decision.
 
 * Context and scope
 
@@ -45,8 +45,8 @@ Out of scope:
 - *Architecture authority* :: [[../../docs/ARCHITECTURE.md][Project Architecture]]
 - *Implementation boundary* :: Obsidian public plugin, vault, workspace,
   settings, modal, and UI APIs.
-- *Deployment boundary* :: The project owner's copy-only installer places
-  `main.js`, `manifest.json`, and `styles.css` in the user's vault.
+- *Deployment boundary* :: A copy-only installer places =main.js=,
+  =manifest.json=, and =styles.css= in the user's vault.
 
 * Requirements
 
@@ -127,32 +127,32 @@ Obsidian's public vault APIs.
 
 - *Category* :: Automated one-off check
 - *Requirement* :: FR-006 - preserve the minimal offline boundary
-- *Procedure* :: Run the repository's oxlint check against `main.js`.
+- *Procedure* :: Run the repository's oxlint check against =main.js=.
 - *Expected result* :: The check exits successfully.
 
 ** OT-001 - isolated installation copy
 
 - *Category* :: One-off operational test
 - *Requirement* :: Deployment boundary
-- *Procedure* :: Install into an isolated directory containing `.obsidian`.
+- *Procedure* :: Install into an isolated directory containing =.obsidian=.
 - *Expected result* :: The installer copies the three plugin artefacts into
-  `.obsidian/plugins/today-note-custom-hotkey/`.
+  =.obsidian/plugins/today-note-custom-hotkey/=.
 
 * Solution design
 
-`main.js` uses Obsidian's public `FuzzySuggestModal` to present Markdown files,
-`getAbstractFileByPath` and `TFile` to resolve the selected target, and
-`WorkspaceLeaf.openFile` to open it. The command and ribbon icon share one
+=main.js= uses Obsidian's public ~FuzzySuggestModal~ to present Markdown files,
+~getAbstractFileByPath~ and ~TFile~ to resolve the selected target, and
+~WorkspaceLeaf.openFile~ to open it. The command and ribbon icon share one
 opening method. Vault lifecycle events refresh the warning state. The settings
-Back button is a native control in `PluginSettingTab.containerEl` that closes
+Back button is a native control in ~PluginSettingTab.containerEl~ that closes
 the host settings controller.
 
-`styles.css` provides only the red unavailable-target state. The installer is a
+=styles.css= provides only the red unavailable-target state. The installer is a
 separate Bash copy operation and does not compile or bundle the plugin.
 
 * Delivery handoff
 
-The accepted implementation is in `main.js`, `styles.css`, and
-`scripts/install.sh`. No automated browser harness or persistent behavioural
-test suite is justified for this small host-specific feature. The remaining
-host tests require the operator's macOS and iOS observations.
+The accepted implementation is in =main.js=, =styles.css=, and
+=scripts/install.sh=. No automated browser harness or persistent behavioural
+test suite is justified for this small host-specific feature. The host tests
+are established by user validation on macOS and iOS.

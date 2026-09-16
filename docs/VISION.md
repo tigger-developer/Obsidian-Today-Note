@@ -82,5 +82,5 @@ decision and change.
 
 The foundation review is recorded in
 [`docs/foundation-review.org`](foundation-review.org). The review is a
-self-review of the foundation documents, not an independent audit or operator
-approval.
+self-review of the foundation documents, not an independent audit. Foundation
+approval is recorded separately in that document.

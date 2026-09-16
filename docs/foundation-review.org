@@ -7,10 +7,10 @@
 - *Review date* :: 2026-09-08
 - *Review type* :: Authoring-context foundation self-review
 - *Result* :: FOUNDATION REVIEW: PASS
-- *Operator sign-off* :: APPROVED by project owner on 2026-09-08
-- *Sign-off authority* :: Project owner
-- *Foundation amendment* :: Plain-JavaScript, no-Node/npm architecture
-  approved by project owner on 2026-09-08
+- *Approval* :: Approved 2026-09-08
+- *Approval authority* :: Project owner
+- *Foundation amendment* :: Plain-JavaScript, no-Node/npm architecture,
+  approved 2026-09-08
 
 ** Review findings
 
@@ -21,7 +21,7 @@
   macOS/iOS Obsidian use, one keyboard command, one in-app icon, no note
   mutation, and no network or foreseeable feature expansion.
 - *Architecture amendment is recorded* :: The plugin is now a maintained
-  plain-JavaScript `main.js` artefact with oxlint validation; Node.js, npm,
+  plain-JavaScript =main.js= artefact with oxlint validation; Node.js, npm,
   TypeScript, and esbuild are excluded.
 - *Ownership is explicit* :: Obsidian owns the vault and host interface; the
   plugin owns settings, command, icon, and status; the project owner owns
@@ -52,8 +52,8 @@
 - Record the exact Obsidian version baseline at release planning.
 - Decide separately whether community-plugin publication is pursued.
 
-** Governance handback
+** Governance status
 
-The self-review is not an independent audit. Foundation sign-off was approved
-by the project owner on 2026-09-08. Feature definition and paired delivery are
-now authorized within the recorded foundation boundaries.
+The self-review is not an independent audit. The foundation was approved
+2026-09-08. Feature definition and paired delivery are authorized within the
+recorded foundation boundaries.

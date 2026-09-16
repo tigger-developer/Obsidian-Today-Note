@@ -15,8 +15,8 @@ Run on macOS, 2026-09-16, using a fresh mktemp directory containing
 =cmp= passed for =main.js=, =manifest.json= and =styles.css=. Copied the source
 manifest as a sentinel =data.json=, repeated installation, and confirmed it
 unchanged with =cmp=. The parsed manifest ID was =today-note-custom-hotkey=.
-No real vault was accessed. Temporary evidence remains at
-=/var/folders/wn/zk3zl2050rd7qkfgkfzn6rwr0000gp/T/tmp.XDik9cYVY5=.
+No real vault was accessed. The evidence directory was created under the
+operating system temporary directory and is not retained.
 
 ** GREEN OT002.2 - documentation and static review :testdef:
 :PROPERTIES:
@@ -54,14 +54,15 @@ the workflow then rejected the known tagged-manifest mismatch via =cmp=.
 JSON assertions verified manual dispatch, job permissions, the exact three
 attestation subjects, and disabled storage-record creation.
 
-After the operator requested automatic release, re-parsed the final YAML,
+Following the automatic-release decision, re-parsed the final YAML,
 syntax-checked both embedded steps and checked master-only push routing and
 separate job permissions. Executed the actual release Bash twice in a temporary
 clone with a temporary bare remote. Real commits, annotated tags and atomic
 pushes succeeded for =1.0.2= then =1.0.3=. A bounded shell substitute for
 =gh release create= checked the version and exact three filenames without
 creating test releases on GitHub. Files matched tag =1.0.2= byte for byte.
-Temporary fixture: =/var/folders/wn/zk3zl2050rd7qkfgkfzn6rwr0000gp/T/tmp.g0bZVnl17p=.
+The fixture clone and bare remote were created under the operating system
+temporary directory and are not retained.
 The attestation verification script itself is unchanged from the refusal checks;
 the final job now checks out the selected tag and also runs after release success.
 
@@ -75,24 +76,24 @@ attachments. No assets or tags were changed during these checks.
   three artefacts. Running =./scripts/install.sh --dry-run= against the same
   temporary vault displayed the new ID directory and all three filenames.
   =bash -n scripts/install.sh= and =git diff --check= passed afterwards.
-- Commit checkpoint :: The commit attempt was rejected by the existing
-  =/Users/tigger/dotfiles/git-template/hooks/commit-msg= hook at line 10:
+- Commit checkpoint :: The commit attempt was rejected by an external Git
+  template =commit-msg= hook outside the repository, at line 10:
   =mapfile: command not found=. The hook uses =#!/usr/bin/env bash=;
   =command -v bash= resolved to =/bin/bash= and =bash --version= reported
-  =3.2.57=. No hook or environment workaround was applied. Changes remain
-  staged pending an operator resolution of the external hook environment.
+  =3.2.57=. No hook or environment workaround was applied. Changes remained
+  staged pending resolution of that external hook environment.
 
 - The manifest's =minAppVersion= value =1.0.0= is retained pending compatibility
   work; it is not a verified support claim.
 - No Obsidian host interaction or community scanner was run in this slice.
-- At the preparation check, W001 host observations remained pending. The
-  operator subsequently confirmed all user tests PASS on 2026-09-16; see
+- At the preparation check, W001 host observations remained pending. All user
+  tests were subsequently recorded PASS by user validation on 2026-09-16; see
   [[file:../001-today-note-access/validation.org][W001 - user validation]].
   Publication readiness remains subject to W002's remaining marketplace work.
 
 * Licence and user acceptance update, 2026-09-16
 
-The operator requested the MIT licence and confirmed all user tests passed.
-The root =LICENSE= contains the MIT terms and the README links to it.
-W001's existing Back button and ribbon PASS evidence is preserved; the three
-previously pending user tests now record the operator's confirmation.
+The MIT licence was adopted and all W001 user tests were recorded PASS by user
+validation. The root =LICENSE= contains the MIT terms and the README links to
+it. W001's existing Back button and ribbon PASS evidence is preserved; the
+three previously pending user tests now record PASS by user validation.

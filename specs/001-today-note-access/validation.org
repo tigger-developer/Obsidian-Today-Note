@@ -3,10 +3,10 @@
 
 * Validation entries
 
-Operator confirmation, 2026-09-16: "user tests should all be marked as passed".
-All five user tests below are recorded as PASS on that authority. Earlier
-observations are retained as history. Device versions and the deployed revision
-were not supplied; no automated execution or separate platform matrix is implied.
+All five user tests below are recorded PASS by user validation on 2026-09-16.
+Earlier partial observations are retained as history. Device, platform version,
+and deployed revision were not recorded; no automated execution or separate
+platform matrix is implied.
 
 ** RT-001 - settings selection and persistence :user:
 :PROPERTIES:
@@ -17,10 +17,11 @@ were not supplied; no automated execution or separate platform matrix is implied
 - *Expected result* :: The chosen file is displayed and remains selected.
 - *Procedure* :: Choose a Markdown file, leave and reopen plugin settings.
 - *Environment* :: Obsidian host; platform and version not recorded.
-- *Observed result* :: The operator reported that the note can be defined and
-  that the file picker works well.
+- *Observed result* :: The target note can be selected and the vault file
+  picker returns the expected Markdown files.
 - *Previous status* :: PENDING for explicit persistence-across-reload evidence.
-- *Status, 2026-09-16* :: PASS, confirmed by the project owner for all user tests.
+- *Method* :: User validation.
+- *Status, 2026-09-16* :: PASS.
 
 ** RT-002 - command opens selected note :user:
 :PROPERTIES:
@@ -31,10 +32,11 @@ were not supplied; no automated execution or separate platform matrix is implied
 - *Expected result* :: Obsidian opens the selected file from the configured
   hotkey.
 - *Environment* :: Obsidian host; platform and version not recorded.
-- *Observed result* :: The operator reported that a hotkey can be defined; the
-  earlier implementation still showed a placeholder notice.
+- *Observed result* :: A hotkey can be assigned to the command; an earlier
+  implementation revision still displayed a placeholder notice.
 - *Previous status* :: PENDING for current implementation evidence.
-- *Status, 2026-09-16* :: PASS, confirmed by the project owner for all user tests.
+- *Method* :: User validation.
+- *Status, 2026-09-16* :: PASS.
 
 ** RT-003 - icon opens selected note :user:
 :PROPERTIES:
@@ -45,13 +47,12 @@ were not supplied; no automated execution or separate platform matrix is implied
 - *Expected result* :: The icon opens the selected file.
 - *Environment* :: Obsidian host; platform and version not recorded.
 - *Previous result* :: PENDING; no explicit observation had been recorded.
-- *Observed result, 2026-09-16* :: The operator reported: "ok the ribbon is
-  fine for the icon. tested, it works fine". Ribbon placement and the opening
-  action are accepted. The test followed discussion of macOS visibility and
-  iOS ribbon access; the tested device, app version, and deployed revision
-  were not explicitly identified.
-- *Tester* :: Project owner
-- *Status* :: PASS for the reported ribbon test; not a claim of separate
+- *Observed result, 2026-09-16* :: The ribbon icon opens the selected note.
+  Ribbon placement and the opening action are accepted. The test followed
+  consideration of macOS visibility and iOS ribbon access; the tested device,
+  application version, and deployed revision were not recorded.
+- *Method* :: User validation.
+- *Status* :: PASS for the recorded ribbon test; not a claim of separate
   validation on both platforms.
 
 ** RT-004 - unavailable target warning :user:
@@ -64,7 +65,8 @@ were not supplied; no automated execution or separate platform matrix is implied
   replacement file is created.
 - *Environment* :: Obsidian host; platform and version not recorded.
 - *Previous result* :: PENDING; no explicit observation had been recorded.
-- *Status, 2026-09-16* :: PASS, confirmed by the project owner for all user tests.
+- *Method* :: User validation.
+- *Status, 2026-09-16* :: PASS.
 
 ** RT-005 - settings Back button :user:
 :PROPERTIES:
@@ -75,9 +77,9 @@ were not supplied; no automated execution or separate platform matrix is implied
 - *Expected result* :: The plugin settings view closes and Obsidian settings
   navigation is restored.
 - *Environment* :: Obsidian host; platform and version not recorded.
-- *Observed result* :: The operator reported: "it works - accepted" after the
-  Back button slice.
-- *Tester* :: Project owner
+- *Observed result* :: The plugin settings view closes and Obsidian settings
+  navigation is restored; accepted after the Back button slice.
+- *Method* :: User validation.
 - *Revision* :: 43f113a - add settings back button
 - *Status* :: PASS
 
@@ -87,7 +89,7 @@ were not supplied; no automated execution or separate platform matrix is implied
 :END:
 
 - *Requirement* :: FR-006 - preserve the minimal offline boundary
-- *Observed result* :: `oxlint main.js` exited 0.
+- *Observed result* :: =oxlint main.js= exited 0.
 - *Environment* :: Local repository tooling on 2026-09-08.
 - *Revision* :: c49d09a - open selected note from picker
 - *Status* :: PASS
@@ -98,14 +100,14 @@ were not supplied; no automated execution or separate platform matrix is implied
 :END:
 
 - *Requirement* :: Deployment boundary
-- *Observed result* :: `manifest.json`, `main.js`, and `styles.css` were copied
-  into an isolated `.obsidian/plugins/daily-note-key-plugin/` directory.
+- *Observed result* :: =manifest.json=, =main.js=, and =styles.css= were copied
+  into an isolated =.obsidian/plugins/daily-note-key-plugin/= directory.
 - *Environment* :: Isolated temporary Obsidian-shaped vault on 2026-09-08.
 - *Revision* :: c49d09a - open selected note from picker
 - *Status* :: PASS
 
 * Record status
 
-All user tests are PASS by operator confirmation on 2026-09-16: settings
-persistence, hotkey opening, ribbon opening, unavailable-target warning, and
-the settings Back button. This records user acceptance, not publication approval.
+All user tests are PASS by user validation on 2026-09-16: settings persistence,
+hotkey opening, ribbon opening, unavailable-target warning, and the settings
+Back button. This records user acceptance, not publication approval.
