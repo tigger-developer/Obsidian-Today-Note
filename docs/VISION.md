@@ -1,6 +1,6 @@
 # Vision
 
-<!-- Version: 0.1.0 | Last updated: 2026-09-08 -->
+<!-- Version: 0.2.0 | Last updated: 2026-09-16 -->
 
 ## Purpose
 
@@ -15,28 +15,29 @@ short keyboard route on macOS and a clearly identifiable in-app route on iOS.
 The user continues to view and edit the note through Obsidian's standard
 interface.
 
-## First usable outcome
+## Delivered outcome
 
-The first release provides:
+The released plugin provides:
 
 - one configuration entry for the selected vault note;
-- one user-configurable keyboard shortcut invoking the open-note command; and
-- one small Obsidian in-app icon on macOS and iOS that invokes the same action.
+- one Obsidian command, `Open today note`, to which the user assigns a keyboard
+  shortcut through Obsidian's own Hotkeys settings; and
+- one small Obsidian ribbon icon on macOS and iOS that invokes the same action.
 
-If the selected note cannot be resolved, the icon visibly changes to a red
-warning state with a warning glyph so that the problem is apparent without
-opening or modifying a note.
+If the selected note cannot be resolved, the ribbon icon changes to a red
+warning state with a warning glyph, and invoking the command or icon displays a
+notice, so that the problem is apparent without opening or modifying a note.
 
-The first release stores the selected note path and preferred keyboard shortcut
-in the plugin's standard Obsidian configuration. It never writes note content.
+The plugin stores only the selected note's vault-relative path in its standard
+Obsidian plugin configuration. Obsidian owns the hotkey assignment. The plugin
+never writes note content.
 
 ## Scope boundaries
 
 The plugin opens the configured note for viewing or editing in Obsidian. It
 does not create, rename, date, search for, or modify notes.
 
-The following are explicit non-goals for the first release and foreseeable
-releases:
+The following are explicit non-goals for the foreseeable releases:
 
 - integration with Obsidian Daily Notes;
 - date rollover or date-based lookup;
@@ -44,39 +45,51 @@ releases:
 - note creation or templates;
 - widgets or operating-system shortcuts outside Obsidian;
 - URL-scheme integration;
-- synchronization integrations;
-- network access, telemetry, or external services; and
-- community-plugin publication at this stage.
+- synchronization integrations; and
+- network access, telemetry, or external services.
 
-## Roadmap
+## Distribution and roadmap
 
-No product roadmap beyond this deliberately small feature is currently
-authorized. Community-plugin publication may be considered later as a separate
-decision and change.
+No product roadmap beyond this deliberately small feature is authorized.
+
+Preparation for the Obsidian community directory is authorized and tracked in
+[W002 - marketplace prep](../specs/002-marketplace-prep/spec.org). That work
+covers package identity, licensing, public documentation, and version-matched
+GitHub releases. Submitting the plugin to the community directory, and the
+review and maintenance obligations that follow, remains a separate decision
+that has not been taken. Until it is, manual installation from a GitHub release
+is the only distribution route.
 
 ## Product constraints
 
 - Supported platforms are macOS and iOS using the latest stable Obsidian
   versions at release time.
-- Release and deployment decisions remain with the project owner and are
-  performed manually.
+- Submission and public-listing decisions remain with the project owner.
+- Each push to `master` publishes one next-patch GitHub release carrying
+  `main.js`, `manifest.json`, and `styles.css`, and attests those files. Release
+  mechanics are described in the README.
 - Vault backup and plugin rollback remain the user's responsibility through
   Obsidian's normal vault and plugin mechanisms.
 - The plugin has no service availability or telemetry obligation.
 
+## Resolved product decisions
+
+- **Stored path representation:** the plugin stores the vault-relative path
+  reported by Obsidian's public vault APIs, not a filesystem absolute path.
+  Settled in [W001 - fixed-note access](../specs/001-today-note-access/spec.org)
+  and reflected in the delivered settings view.
+- **Unavailable-target feedback:** the command and the ribbon icon both display
+  an Obsidian notice when no note is configured or the configured path does not
+  resolve, alongside the red warning icon state. Settled in W001.
+
 ## Unresolved product decisions
 
-- The configuration wording and storage representation for an "absolute path"
-  must be reconciled with the path representation exposed by Obsidian's public
-  vault APIs. The product intent is the exact file selected from the vault; the
-  feature specification must confirm the portable representation.
-- The keyboard command's user-visible behaviour when the configured file is
-  unavailable is not yet defined. The red warning icon is defined for the icon
-  state; command feedback needs a separate feature-level decision.
-- The minimum exact Obsidian version is deferred to release planning; latest
-  stable macOS and iOS Obsidian versions remain the current support intent.
-- Community-plugin publication, including its review and release obligations,
-  is deferred.
+- The minimum exact Obsidian version is unverified. The manifest declares
+  `minAppVersion` `1.0.0`, which is a placeholder rather than a tested support
+  claim; latest stable macOS and iOS Obsidian versions remain the support
+  intent.
+- Community-directory submission, including its review and ongoing maintenance
+  obligations, is still deferred.
 
 ## Foundation status
 
@@ -84,3 +97,12 @@ The foundation review is recorded in
 [`docs/foundation-review.org`](foundation-review.org). The review is a
 self-review of the foundation documents, not an independent audit. Foundation
 approval is recorded separately in that document.
+
+## Document changelog
+
+- **0.2.0, 2026-09-16:** recorded the delivered behaviour, corrected the
+  settings-storage description to the vault-relative path only, moved the
+  settled path-representation and unavailable-target decisions to resolved,
+  and replaced the publication non-goal with the authorized marketplace
+  preparation and the outstanding submission decision.
+- **0.1.0, 2026-09-08:** initial foundation Vision.
