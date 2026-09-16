@@ -31,6 +31,24 @@ This is a *paired skeleton*, expanded as the operator authorizes each slice.
 
 * Current slice
 
+- Attestation decision, 2026-09-16 :: Operator requested a workflow modelled on
+  =../obsidian-ios-tts/.github/workflows/attest-release.yml=. Only =main.js=,
+  =manifest.json=, and =styles.css= may be release attachments. =LICENSE=
+  remains in the repository. Use explicit dispatch, pinned actions, and exact
+  comparison of checked-out, tagged, and downloaded files before signing.
+  Refuse extra assets, invalid versions, draft releases, and mismatched bytes.
+  Do not rewrite release tags or upload additional release files.
+- Automatic-release decision, 2026-09-16 :: The operator subsequently requested
+  patch increments and automatic attestation on pushes. This supersedes the
+  manual-only trigger above. Each push to =master= publishes one next-patch
+  release, including documentation-only pushes; a multi-commit push publishes
+  once. A version commit and annotated tag are atomically pushed with the
+  repository's =GITHUB_TOKEN=, preventing recursive push-triggered runs.
+  A separate dependent job checks out that tag and attests its three assets.
+  Manual dispatch remains available for existing releases. Jobs are serialized;
+  branch races fail safely without force-pushing. The release job alone receives
+  =contents: write=; attestation retains its narrower permissions.
+
 - Align the *manifest and installer directory* with the chosen plugin ID.
 - Write a *user-facing README* with setup, opening, missing-note behaviour,
   privacy, installation, and the implications for existing local installations.
@@ -66,6 +84,23 @@ Covered by [[#ot002-2][OT002.2 - documentation and static review]].
 
 * Verification
 
+** OT002.3 - attestation workflow checks :testdef:
+:PROPERTIES:
+:CUSTOM_ID: ot002-3
+:END:
+
+- Covers :: [[#ac002-3][AC002.3 - attest only matching installation files]].
+- Procedure :: Parse the YAML and syntax-check the embedded Bash. Check the
+  patch increment on representative versions, current GitHub release asset inventory and compare downloaded assets with
+  source and tag. Exercise version and asset-set validation with valid and
+  invalid values as bounded local checks.
+- Expected :: Only the three named subjects are signed; extra files and
+  nonmatching content are rejected before signing. Only the release job has
+  release-write permission; the attestation job cannot change assets.
+- Limits :: No persistent test framework; actual GitHub signing requires a
+  source-consistent release. A refusal on a deliberately mismatched release
+  establishes the guard, not successful attestation.
+
 ** OT002.1 - isolated package check :testdef:
 :PROPERTIES:
 :CUSTOM_ID: ot002-1
@@ -95,6 +130,32 @@ Covered by [[#ot002-2][OT002.2 - documentation and static review]].
   warranted for this metadata and documentation slice.
 
 * Compatibility and design
+
+** AC002.3 - attest only matching installation files :ac:
+:PROPERTIES:
+:CUSTOM_ID: ac002-3
+:END:
+
+Each master push increments the patch version and publishes the three
+installation files. Automatic or manual attestation signs only those files
+after verifying their version, exact asset set, and byte equality with checkout
+and tag. Attestation does not modify the release or attach extra files.
+Covered by [[#ot002-3][OT002.3 - attestation workflow checks]].
+
+** Attestation boundary
+
+The workflow uses job-scoped =contents: read=, =id-token: write=, and
+=attestations: write=. Checkout credentials are not persisted. The reference
+workflow's pinned checkout and attest actions are reused. Attestations are
+stored by GitHub separately from release attachments; storage-record creation
+is disabled. Hosted-runner temporary storage holds downloaded comparison files.
+
+The current =1.0.1= manifest attachment was updated after tagging at the
+operator's request. It differs from the tagged manifest description and must
+be rejected. Resolving that discrepancy requires a subsequent release or an
+explicitly authorized tag change, not a weakened comparison.
+
+** Existing installation compatibility
 
 The new ID uses a new plugin directory and command namespace. Existing local
 users disable the old installation, enable the new one, select the note, and

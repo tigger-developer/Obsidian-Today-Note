@@ -36,6 +36,39 @@ jq -e '.id == "today-note-custom-hotkey" and .version == "0.1.0" and .isDesktopO
 git diff --check
 #+end_src
 
+* Attestation workflow validation
+
+** GREEN OT002.3 - attestation workflow checks :testdef:
+:PROPERTIES:
+:REVISION: 645e737 plus the W002 attestation workflow and documentation
+:EVIDENCE: YAML and embedded Bash passed; isolated real Git releases incremented 1.0.1 to 1.0.2 to 1.0.3; exact asset boundary checked; invalid versions, extra assets and tagged-manifest mismatch rejected before signing.
+:END:
+
+Run on 2026-09-16 using =yq=, =jq=, Bash 5 and authenticated read-only =gh=.
+Extracted the workflow's verification step into an OS temporary directory and
+executed it directly. Invalid inputs =v1.0.1=, =01.0.1= and =../1.0.1= were
+rejected. A shell function intercepting only =gh release view= added a synthetic
+=LICENSE= asset to the real response; the actual workflow step rejected it
+before attempting download. The actual =1.0.1= release inventory passed and
+the workflow then rejected the known tagged-manifest mismatch via =cmp=.
+JSON assertions verified manual dispatch, job permissions, the exact three
+attestation subjects, and disabled storage-record creation.
+
+After the operator requested automatic release, re-parsed the final YAML,
+syntax-checked both embedded steps and checked master-only push routing and
+separate job permissions. Executed the actual release Bash twice in a temporary
+clone with a temporary bare remote. Real commits, annotated tags and atomic
+pushes succeeded for =1.0.2= then =1.0.3=. A bounded shell substitute for
+=gh release create= checked the version and exact three filenames without
+creating test releases on GitHub. Files matched tag =1.0.2= byte for byte.
+Temporary fixture: =/var/folders/wn/zk3zl2050rd7qkfgkfzn6rwr0000gp/T/tmp.g0bZVnl17p=.
+The attestation verification script itself is unchanged from the refusal checks;
+the final job now checks out the selected tag and also runs after release success.
+
+This verifies refusal guards and structure, not successful remote signing.
+=actionlint= was not installed. The live release has only the three requested
+attachments. No assets or tags were changed during these checks.
+
 * Limitations
 
 - Follow-up check, 2026-09-16 :: The installer dry-run output now lists all

@@ -91,6 +91,26 @@ must attach them individually and use a tag matching `manifest.json`'s version.
 Marketplace preparation is tracked in
 [W002 - marketplace prep](specs/002-marketplace-prep/spec.org).
 
+## Release attestations
+
+The **Release and attest** GitHub Actions workflow runs on pushes to `master`.
+It increments the manifest's patch version by one, commits that version, and
+publishes a matching tag and release containing exactly `main.js`,
+`manifest.json`, and `styles.css`. It then verifies the attachments against the
+tagged source and attests them. `LICENSE` remains in the repository.
+
+The automated version commit does not trigger another release. Pull `master`
+after a release to obtain that commit before pushing further work. Each push
+produces one release, even when it contains several commits. Runs are serialized;
+a concurrent branch update can reject the release push without overwriting it.
+
+Manual dispatch accepts an existing release tag and performs only verification
+and attestation. That job has no permission to modify release attachments.
+
+The `1.0.1` manifest attachment was updated after tagging to correct its
+description. That release will fail the source comparison until the discrepancy
+is resolved; no attestation is claimed for it.
+
 ## Licence
 
 [MIT](LICENSE). Copyright (c) 2026 Taḋg.

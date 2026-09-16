@@ -11,36 +11,33 @@ audits:
         harness: hermes
         provider: nous
         model: z-ai/glm-5.3
-      external_round: 1
+      external_round: 2
       status: passed
-      updated: "2026-09-16T11:37:49Z"
-      revision: 76da511 plus W002 identifier and documentation changes, 2026-09-16
+      updated: "2026-09-16T13:00:13Z"
+      revision: 645e737 plus W002 attestation workflow and documentation
       verdict: PROVISIONAL PASS
       response: |-
-        GATE: implementation
-        REVISION: 76da511 plus W002 identifier and documentation changes, 2026-09-16
+        GATE: delivery-code
+        REVISION: 645e737 plus W002 attestation workflow and documentation
         VERDICT: PROVISIONAL PASS
 
-        Findings and rationale:
+        Prior findings resolved:
 
-        Current GREEN evidence:
+        - The installer dry-run wording is corrected to list all three artefacts (manifest.json, main.js, styles.css), and a dated follow-up check in validation.org records the verification. Prior finding withdrawn as remediated.
 
-        - OT002.1 (isolated package check) is GREEN with dated, concrete evidence: three-way cmp match, sentinel data.json preserved on reinstall, manifest ID parsed, temp vault used. Procedure matches the recorded operator scope (installer alignment with the new ID, no real vault, no network).
-        - OT002.2 (documentation and static review) is GREEN: oxlint, bash -n, jq manifest checks, git diff --check, and README-to-source comparison are recorded with dated evidence. Both OTs satisfy delivery-code readiness; no RTs or UTs are defined for this slice, which is appropriate for a metadata/documentation change with no runtime behaviour change.
+        Current increment assessment:
 
-        Scope conformance:
+        - attest-release.yml conforms to the recorded operator-authorized scope: master-push triggers only the release job; it increments the patch via jq with a strict semver allowlist, commits, tags (annotated), and pushes atomically; uploads exactly the three explicit files; and the attest job separately checks out the tag, verifies the exact live asset set, non-draft state, manifest version equality, and byte equality between checkout, tag, and downloaded assets before signing. Job permissions are scoped (contents: write only for release; contents: read, id-token: write, attestations: write only for attest; persist-credentials: false). No extra assets are created; the known 1.0.1 post-tag manifest mismatch is documented as must-reject rather than worked around. No security defect or weakened verification found.
+        - OT002.3 is GREEN with current, dated evidence proportionate to the slice: YAML/Bash syntax checks, invalid-version rejection (v1.0.1, 01.0.1, ../1.0.1), extra-asset refusal before signing, real release inventory read, real temporary Git repo releases (1.0.1 to 1.0.2 to 1.0.3), atomic pushes, and mocked gh release create checking the exact three filenames without creating test releases. OT002.1/OT002.2 remain GREEN and unaffected: runtime source (main.js, styles.css) is byte-identical (matching hashes), and install.sh changed only the dry-run message string, re-verified by bash -n and the recorded follow-up check.
+        - No unauthorized scope: no Node/npm, no new framework, no persistent test mirroring YAML, no runtime change. README's new "Release attestations" section accurately describes the delivered workflow, the recursion prevention, serialization, the manual-dispatch path, and the honest 1.0.1 non-attestation statement. spec.org records the automatic-release decision superseding the manual-only trigger.
 
-        - manifest.json id = today-note-custom-hotkey; installer copies into .obsidian/plugins/today-note-custom-hotkey/; install-help.md, README, and spec.org all agree. AC002.1 satisfied.
-        - main.js and styles.css are unchanged, matching the operator's explicit "keep main.js" instruction and the spec's statement that the entry filename and stylesheet remain unchanged. No unauthorized runtime changes, no new dependencies, no Node/npm. AC002.2 satisfied.
-        - README does not claim marketplace availability or verified compatibility; minAppVersion is explicitly marked unverified in validation.org and retained in the backlog. No false compatibility claim.
-        - The W001 foundation inconsistencies, minAppVersion, licence, and Back-button API usage are explicitly recorded as backlog, not silently resolved. No scope creep found in the delta.
+        Provisional items (bounded, reversible, do not invalidate sign-off):
 
-        Provisional items (bounded, reversible follow-up only):
+        1. validation.org structure: the GREEN OT002.3 heading is nested under the "* Limitations" section rather than under the current-slice section with OT002.1/OT002.2. The heading is present and state-carrying, but placement under Limitations misrepresents it. Remediation: move the OT002.3 heading under the current preparation slice section (or an equivalently named active section) at the next validation.org edit.
+        2. LICENSE is referenced by README and spec.org and recorded as added on operator instruction, but is not in this invocation's evidence manifest, so its content was not reviewed in this round. Verify its presence and MIT terms match the linked claim before closure; this is an evidence-coverage note, not a finding of defect.
+        3. Live hosted execution of the workflow (actual push, remote attestation signing) is explicitly deferred to follow and is recorded as such; the local evidence establishes the guards and structure only. Confirm the first hosted run's outcome before treating the workflow as behaviourally delivered.
 
-        1. install.sh dry-run message is stale: it prints "would copy manifest.json and main.js" but omits styles.css, which the installer actually copies. This is a minor accuracy defect in operator-facing output introduced by this slice. Remediation: correct the dry-run message to list all three artefacts. Does not invalidate sign-off; documented behaviour in install-help.md remains correct.
-        2. validation.org OT002.1 records the temporary evidence path under /var/folders (a mktemp scratch directory). Retain or copy that durable evidence as the operator directs before closure; it is already bounded by the spec's one-temp-vault limit, so this is a record-keeping reminder, not a defect.
-
-        No blocking findings: no violated approved decision, standard, correctness defect, or security defect identified in the changed artefacts. The installer uses set -eo pipefail, quoted expansion, terminates options in style, validates the vault root, and avoids prohibited shell patterns. The plugin source was inspected in full during OT002.2; its unchanged state is consistent with the recorded scope.
+        No blocking findings: no violated approved decision, applicable standard, correctness defect, or security defect in the audited delta.
       history:
         - readiness_check: delivery-code
           cache_key: sha256:23ace7cf1c599b247a7c2034ada7e62dc69387b8f00964b71ebb811da2d0ced5
@@ -132,3 +129,96 @@ audits:
 
             No blocking findings: no violated approved decision, standard, correctness defect, or security defect identified in the changed artefacts. The installer uses set -eo pipefail, quoted expansion, terminates options in style, validates the vault root, and avoids prohibited shell patterns. The plugin source was inspected in full during OT002.2; its unchanged state is consistent with the recorded scope.
           updated: "2026-09-16T11:37:34Z"
+        - readiness_check: delivery-code
+          cache_key: sha256:a1f6dcb5c87a88a8ba7aeaaf404899e71ecfc03ec34447bc9f0f804e91264dfa
+          session_id: 20260916_123736_8c0bde
+          harness: hermes
+          provider: nous
+          model: z-ai/glm-5.3
+          evidence:
+            - path: /Users/tigger/.agents/sdlc/ARCHITECTURE.md
+              sha256: bd7a66ffd967010eefb8dc7abe64b059994c7b0f44ed5f5c30ec73e354f5b7f7
+              bytes: 8154
+            - path: /Users/tigger/.agents/sdlc/CODING.md
+              sha256: a69a5d3b7ce3604b093703d72ab0de1bb6d607f140baab17292d209054fe902f
+              bytes: 13502
+            - path: /Users/tigger/.agents/sdlc/DOCUMENTATION.md
+              sha256: 3d63d81a8054974b21e04018ce583c47938bdb5dd38ba5f1af9ce5f8c0ba1c66
+              bytes: 4547
+            - path: /Users/tigger/.agents/sdlc/PAIRING.md
+              sha256: 6143ccad299a5cd89cb8b73fbb4082caa7a9826d065d78b1a41cdcaba9fed854
+              bytes: 6035
+            - path: /Users/tigger/.agents/sdlc/SECURITY.md
+              sha256: fbceb4dffd2ab69a3edcd1dd924873bdbe5298cffa4c2e65548e04541fb78f73
+              bytes: 5027
+            - path: /Users/tigger/.agents/sdlc/TESTING.md
+              sha256: 198a6c665a2a253802d02686721e43f528b6bbaff7a9a7cc3cbdb9a8ffdf7f09
+              bytes: 16107
+            - path: /Users/tigger/.agents/sdlc/technologies/JAVASCRIPT.md
+              sha256: bdd055c0f688a752dd6e452da385a583c2c875be7249ece0bfd8200f33809acb
+              bytes: 7508
+            - path: /Users/tigger/.agents/sdlc/technologies/SHELL.md
+              sha256: c1a56e020ef7b66c166ef80346bc2df67a039c6145bbca38961a127cefad1fed
+              bytes: 11225
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/.github/workflows/attest-release.yml
+              sha256: 28843d9adc427dd6dea3eee485b464bda5de2df2442cce8ccdc946efa3c80f7e
+              bytes: 4581
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/.sdlc/project.yaml
+              sha256: acf3033f902c870e563b4a0a5039843c37f03a660859f852303b1501a4c99ea0
+              bytes: 489
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/README.md
+              sha256: 22686619bd441d52a3ce94dfb4641512acadb764e7f6e3cfbbeb87b703cd897d
+              bytes: 5072
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/docs/ARCHITECTURE.md
+              sha256: 812011175816e62a23206f5598d7fa850c21fabb77484245b3b98954c2368f07
+              bytes: 5886
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/docs/VISION.md
+              sha256: f3a18a3f09f95f2de8144c32371e0c5f820c09bce07119cfa99b9265aa230779
+              bytes: 3406
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/docs/install-help.md
+              sha256: 98a41d7114c477b3bbfa354e97640a474048bdd2381447d5e92cee337ac203e8
+              bytes: 713
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/main.js
+              sha256: dedbc1039a946ccc9c2dbd1035e0ef5efe0d704841451cfd92afee3bf2f1eacb
+              bytes: 3995
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/manifest.json
+              sha256: fe12f3b56f9919b652b3a1601cb32353a3c829be0728e69d5bb94e3bfb3053ef
+              bytes: 323
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/scripts/install.sh
+              sha256: 5259990fad87f6a3c2bd83cdd3fa3a0385c3549a7053b37ad0b63b147fc5465e
+              bytes: 1921
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/specs/002-marketplace-prep/spec.org
+              sha256: a38b1648315072fc5496294654801d7c5313af7741356d3e0e9fc056d51cb443
+              bytes: 9786
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/specs/002-marketplace-prep/validation.org
+              sha256: afecf7df4fec546f449389d0bd109d28656ba37ceca17776aead56414f5af513
+              bytes: 5417
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/styles.css
+              sha256: 3f4ff236c94e0f8fb801a099d313912fea77745c9da3c5c30c1a4b3f10b31471
+              bytes: 55
+          round: 2
+          revision: 645e737 plus W002 attestation workflow and documentation
+          verdict: PROVISIONAL PASS
+          response: |-
+            GATE: delivery-code
+            REVISION: 645e737 plus W002 attestation workflow and documentation
+            VERDICT: PROVISIONAL PASS
+
+            Prior findings resolved:
+
+            - The installer dry-run wording is corrected to list all three artefacts (manifest.json, main.js, styles.css), and a dated follow-up check in validation.org records the verification. Prior finding withdrawn as remediated.
+
+            Current increment assessment:
+
+            - attest-release.yml conforms to the recorded operator-authorized scope: master-push triggers only the release job; it increments the patch via jq with a strict semver allowlist, commits, tags (annotated), and pushes atomically; uploads exactly the three explicit files; and the attest job separately checks out the tag, verifies the exact live asset set, non-draft state, manifest version equality, and byte equality between checkout, tag, and downloaded assets before signing. Job permissions are scoped (contents: write only for release; contents: read, id-token: write, attestations: write only for attest; persist-credentials: false). No extra assets are created; the known 1.0.1 post-tag manifest mismatch is documented as must-reject rather than worked around. No security defect or weakened verification found.
+            - OT002.3 is GREEN with current, dated evidence proportionate to the slice: YAML/Bash syntax checks, invalid-version rejection (v1.0.1, 01.0.1, ../1.0.1), extra-asset refusal before signing, real release inventory read, real temporary Git repo releases (1.0.1 to 1.0.2 to 1.0.3), atomic pushes, and mocked gh release create checking the exact three filenames without creating test releases. OT002.1/OT002.2 remain GREEN and unaffected: runtime source (main.js, styles.css) is byte-identical (matching hashes), and install.sh changed only the dry-run message string, re-verified by bash -n and the recorded follow-up check.
+            - No unauthorized scope: no Node/npm, no new framework, no persistent test mirroring YAML, no runtime change. README's new "Release attestations" section accurately describes the delivered workflow, the recursion prevention, serialization, the manual-dispatch path, and the honest 1.0.1 non-attestation statement. spec.org records the automatic-release decision superseding the manual-only trigger.
+
+            Provisional items (bounded, reversible, do not invalidate sign-off):
+
+            1. validation.org structure: the GREEN OT002.3 heading is nested under the "* Limitations" section rather than under the current-slice section with OT002.1/OT002.2. The heading is present and state-carrying, but placement under Limitations misrepresents it. Remediation: move the OT002.3 heading under the current preparation slice section (or an equivalently named active section) at the next validation.org edit.
+            2. LICENSE is referenced by README and spec.org and recorded as added on operator instruction, but is not in this invocation's evidence manifest, so its content was not reviewed in this round. Verify its presence and MIT terms match the linked claim before closure; this is an evidence-coverage note, not a finding of defect.
+            3. Live hosted execution of the workflow (actual push, remote attestation signing) is explicitly deferred to follow and is recorded as such; the local evidence establishes the guards and structure only. Confirm the first hosted run's outcome before treating the workflow as behaviourally delivered.
+
+            No blocking findings: no violated approved decision, applicable standard, correctness defect, or security defect in the audited delta.
+          updated: "2026-09-16T12:59:41Z"
