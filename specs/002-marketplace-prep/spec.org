@@ -98,12 +98,13 @@ dependencies, network calls, note writes, or access permissions.
 These assessment items are retained here for subsequent paired work; they are
 not evidence of publication readiness or authorization to publish.
 
-- Add the MIT licence file required by the existing foundation decision.
+- MIT licence :: Added the root =LICENSE= file on 2026-09-16 under operator
+  instruction, implementing the existing foundation decision.
 - Establish the minimum Obsidian version and validate on macOS and iOS.
   The current =minAppVersion= value =1.0.0= remains unverified.
-- Finish the outstanding W001 observations for settings persistence, hotkey
-  opening, and missing-target warnings. Ribbon placement and opening have
-  operator acceptance; individual platform/version coverage remains unspecified.
+- W001 user tests :: All marked PASS on the operator's confirmation of
+  2026-09-16; see [[file:../001-today-note-access/validation.org][W001 - validation record]].
+  Individual platform/version coverage remains unspecified.
 - Review the existing settings Back button's =app.setting.close()= API usage.
 - Reconcile older foundation wording about publication, settings ownership,
   and copy-only deployment before closing marketplace preparation.

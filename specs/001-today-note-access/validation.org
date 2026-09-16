@@ -3,9 +3,14 @@
 
 * Validation entries
 
+Operator confirmation, 2026-09-16: "user tests should all be marked as passed".
+All five user tests below are recorded as PASS on that authority. Earlier
+observations are retained as history. Device versions and the deployed revision
+were not supplied; no automated execution or separate platform matrix is implied.
+
 ** RT-001 - settings selection and persistence :user:
 :PROPERTIES:
-:STATUS: PENDING
+:STATUS: PASS
 :END:
 
 - *Requirement* :: FR-001 - select and persist one target note
@@ -14,11 +19,12 @@
 - *Environment* :: Obsidian host; platform and version not recorded.
 - *Observed result* :: The operator reported that the note can be defined and
   that the file picker works well.
-- *Status* :: PENDING for explicit persistence-across-reload evidence.
+- *Previous status* :: PENDING for explicit persistence-across-reload evidence.
+- *Status, 2026-09-16* :: PASS, confirmed by the project owner for all user tests.
 
 ** RT-002 - command opens selected note :user:
 :PROPERTIES:
-:STATUS: PENDING
+:STATUS: PASS
 :END:
 
 - *Requirement* :: FR-002 - open the configured target
@@ -27,7 +33,8 @@
 - *Environment* :: Obsidian host; platform and version not recorded.
 - *Observed result* :: The operator reported that a hotkey can be defined; the
   earlier implementation still showed a placeholder notice.
-- *Status* :: PENDING for current implementation evidence.
+- *Previous status* :: PENDING for current implementation evidence.
+- *Status, 2026-09-16* :: PASS, confirmed by the project owner for all user tests.
 
 ** RT-003 - icon opens selected note :user:
 :PROPERTIES:
@@ -49,15 +56,15 @@
 
 ** RT-004 - unavailable target warning :user:
 :PROPERTIES:
-:STATUS: PENDING
+:STATUS: PASS
 :END:
 
 - *Requirement* :: FR-004 - expose unavailable-target state
 - *Expected result* :: The icon becomes red with a warning glyph and no
   replacement file is created.
 - *Environment* :: Obsidian host; platform and version not recorded.
-- *Observed result* :: No explicit current observation recorded.
-- *Status* :: PENDING.
+- *Previous result* :: PENDING; no explicit observation had been recorded.
+- *Status, 2026-09-16* :: PASS, confirmed by the project owner for all user tests.
 
 ** RT-005 - settings Back button :user:
 :PROPERTIES:
@@ -99,7 +106,6 @@
 
 * Record status
 
-Current validation still lacks the outstanding evidence for RT-001 - settings
-persistence, RT-002 - hotkey opening, and RT-004 - unavailable-target warning.
-RT-003 - ribbon opening was accepted on 2026-09-16. The recorded RT-005
-acceptance applies to the Back button only.
+All user tests are PASS by operator confirmation on 2026-09-16: settings
+persistence, hotkey opening, ribbon opening, unavailable-target warning, and
+the settings Back button. This records user acceptance, not publication approval.

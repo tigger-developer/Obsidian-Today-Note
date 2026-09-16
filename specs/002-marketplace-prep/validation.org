@@ -52,5 +52,14 @@ git diff --check
 - The manifest's =minAppVersion= value =1.0.0= is retained pending compatibility
   work; it is not a verified support claim.
 - No Obsidian host interaction or community scanner was run in this slice.
-- This evidence does not close W001's pending host observations or establish
-  readiness to publish W002's remaining marketplace backlog.
+- At the preparation check, W001 host observations remained pending. The
+  operator subsequently confirmed all user tests PASS on 2026-09-16; see
+  [[file:../001-today-note-access/validation.org][W001 - user validation]].
+  Publication readiness remains subject to W002's remaining marketplace work.
+
+* Licence and user acceptance update, 2026-09-16
+
+The operator requested the MIT licence and confirmed all user tests passed.
+The root =LICENSE= contains the MIT terms and the README links to it.
+W001's existing Back button and ribbon PASS evidence is preserved; the three
+previously pending user tests now record the operator's confirmation.

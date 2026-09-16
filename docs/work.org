@@ -88,7 +88,8 @@ classification; it is provenance, not current state.
 
 - *Specification:* [[file:../specs/001-today-note-access/spec.org][W001 - open one fixed note from command and icon]]
 - *Validation:* [[file:../specs/001-today-note-access/validation.org][W001 - validation record]]
-- *Current status:* Paired implementation accepted in part; host validation remains recorded as pending where not explicitly observed.
+- *User validation:* All five user tests confirmed PASS by the project owner
+  on 2026-09-16. Earlier partial acceptance is retained in the validation history.
 
 ** ACTIVE W002 - marketplace prep :maintenance:
 :PROPERTIES:

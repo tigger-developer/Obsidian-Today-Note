@@ -86,3 +86,7 @@ must attach them individually and use a tag matching `manifest.json`'s version.
 
 Marketplace preparation is tracked in
 [W002 - marketplace prep](specs/002-marketplace-prep/spec.org).
+
+## Licence
+
+[MIT](LICENSE). Copyright (c) 2026 Taḋg.
