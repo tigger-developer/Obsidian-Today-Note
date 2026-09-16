@@ -1,6 +1,6 @@
 # Architecture
 
-<!-- Version: 0.3.0 | Last updated: 2026-09-16 -->
+<!-- Version: 0.3.1 | Last updated: 2026-09-16 -->
 
 ## Architectural boundary
 
@@ -110,8 +110,8 @@ infrastructure:
 - Unsupported optional host capabilities must be detected and reported through
   the owning Obsidian interface rather than failing through desktop-only APIs.
 
-The declared `minAppVersion` is not yet backed by version-specific
-compatibility testing, so it constrains nothing that has been verified.
+The declared `minAppVersion` is `1.13.0`. It is the recorded support baseline,
+not yet confirmed by version-specific compatibility testing.
 
 ## Deployment and ownership
 
@@ -151,6 +151,8 @@ change specification.
 
 ## Document changelog
 
+- **0.3.1, 2026-09-16:** recorded the `minAppVersion` `1.13.0` support
+  baseline.
 - **0.3.0, 2026-09-16:** corrected the settings component and data boundary to
   the stored note path only, recorded the notice raised for an unresolved
   target, settled the vault-relative path representation, added the release and

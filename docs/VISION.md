@@ -1,6 +1,6 @@
 # Vision
 
-<!-- Version: 0.2.0 | Last updated: 2026-09-16 -->
+<!-- Version: 0.2.1 | Last updated: 2026-09-16 -->
 
 ## Purpose
 
@@ -84,10 +84,10 @@ is the only distribution route.
 
 ## Unresolved product decisions
 
-- The minimum exact Obsidian version is unverified. The manifest declares
-  `minAppVersion` `1.0.0`, which is a placeholder rather than a tested support
-  claim; latest stable macOS and iOS Obsidian versions remain the support
-  intent.
+- The manifest declares `minAppVersion` `1.13.0` as the support baseline. That
+  value is a project-owner decision; version-specific compatibility testing on
+  macOS and iOS has not been recorded against it. Latest stable Obsidian
+  versions remain the support intent.
 - Community-directory submission, including its review and ongoing maintenance
   obligations, is still deferred.
 
@@ -100,6 +100,8 @@ approval is recorded separately in that document.
 
 ## Document changelog
 
+- **0.2.1, 2026-09-16:** recorded the `minAppVersion` `1.13.0` support baseline
+  and that compatibility testing against it is outstanding.
 - **0.2.0, 2026-09-16:** recorded the delivered behaviour, corrected the
   settings-storage description to the vault-relative path only, moved the
   settled path-representation and unavailable-target decisions to resolved,

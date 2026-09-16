@@ -83,8 +83,9 @@ attachments. No assets or tags were changed during these checks.
   =3.2.57=. No hook or environment workaround was applied. Changes remained
   staged pending resolution of that external hook environment.
 
-- The manifest's =minAppVersion= value =1.0.0= is retained pending compatibility
-  work; it is not a verified support claim.
+- The manifest's =minAppVersion= was =1.0.0= at the time of these checks and is
+  now =1.13.0=. Compatibility work remains outstanding; neither value is a
+  verified support claim.
 - No Obsidian host interaction or community scanner was run in this slice.
 - At the preparation check, W001 host observations remained pending. All user
   tests were subsequently recorded PASS by user validation on 2026-09-16; see

@@ -172,8 +172,9 @@ not evidence of publication readiness or authorization to publish.
 
 - MIT licence :: The root =LICENSE= file was added on 2026-09-16, implementing
   the existing foundation decision.
-- Establish the minimum Obsidian version and validate on macOS and iOS.
-  The current =minAppVersion= value =1.0.0= remains unverified.
+- Validate the declared minimum Obsidian version on macOS and iOS. The
+  =minAppVersion= baseline is =1.13.0=, superseding the earlier =1.0.0=; it is
+  a recorded decision, not yet a tested support claim.
 - W001 user tests :: All recorded PASS by user validation on 2026-09-16; see
   [[file:../001-today-note-access/validation.org][W001 - validation record]].
   Individual platform/version coverage remains unspecified.
