@@ -1,0 +1,56 @@
+#+TITLE: W002 - marketplace preparation checks
+#+STARTUP: overview
+#+TODO: AMBER RED | GREEN
+
+* Current preparation slice
+
+** GREEN OT002.1 - isolated package check :testdef:
+:PROPERTIES:
+:REVISION: 76da511 plus W002 identifier and documentation changes, 2026-09-16
+:EVIDENCE: Installer copied all three matching artefacts into the new ID directory; repeat installation preserved a sentinel data.json byte for byte.
+:END:
+
+Run on macOS, 2026-09-16, using a fresh mktemp directory containing
+=vault with spaces/.obsidian=. Piped that vault path into =./scripts/install.sh=.
+=cmp= passed for =main.js=, =manifest.json= and =styles.css=. Copied the source
+manifest as a sentinel =data.json=, repeated installation, and confirmed it
+unchanged with =cmp=. The parsed manifest ID was =today-note-custom-hotkey=.
+No real vault was accessed. Temporary evidence remains at
+=/var/folders/wn/zk3zl2050rd7qkfgkfzn6rwr0000gp/T/tmp.XDik9cYVY5=.
+
+** GREEN OT002.2 - documentation and static review :testdef:
+:PROPERTIES:
+:REVISION: 76da511 plus W002 identifier and documentation changes, 2026-09-16
+:EVIDENCE: README reviewed against source and installer; oxlint, bash syntax, manifest JSON checks and git diff --check passed. Documentation processed with sanitize.
+:END:
+
+The current =main.js= was inspected in full. Its entry filename and source
+remain unchanged. README labels, settings persistence, command, missing-path
+notice, and icon description match that source. Installer copy behaviour was
+checked through OT002.1 above. The following checks succeeded:
+
+#+begin_src sh
+oxlint main.js
+bash -n scripts/install.sh
+jq -e '.id == "today-note-custom-hotkey" and .version == "0.1.0" and .isDesktopOnly == false' manifest.json
+git diff --check
+#+end_src
+
+* Limitations
+
+- Follow-up check, 2026-09-16 :: The installer dry-run output now lists all
+  three artefacts. Running =./scripts/install.sh --dry-run= against the same
+  temporary vault displayed the new ID directory and all three filenames.
+  =bash -n scripts/install.sh= and =git diff --check= passed afterwards.
+- Commit checkpoint :: The commit attempt was rejected by the existing
+  =/Users/tigger/dotfiles/git-template/hooks/commit-msg= hook at line 10:
+  =mapfile: command not found=. The hook uses =#!/usr/bin/env bash=;
+  =command -v bash= resolved to =/bin/bash= and =bash --version= reported
+  =3.2.57=. No hook or environment workaround was applied. Changes remain
+  staged pending an operator resolution of the external hook environment.
+
+- The manifest's =minAppVersion= value =1.0.0= is retained pending compatibility
+  work; it is not a verified support claim.
+- No Obsidian host interaction or community scanner was run in this slice.
+- This evidence does not close W001's pending host observations or establish
+  readiness to publish W002's remaining marketplace backlog.

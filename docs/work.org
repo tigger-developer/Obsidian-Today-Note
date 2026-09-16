@@ -90,14 +90,25 @@ classification; it is provenance, not current state.
 - *Validation:* [[file:../specs/001-today-note-access/validation.org][W001 - validation record]]
 - *Current status:* Paired implementation accepted in part; host validation remains recorded as pending where not explicitly observed.
 
-* Foundation - daily-note-key-plugin
+** ACTIVE W002 - marketplace prep :maintenance:
+:PROPERTIES:
+:CUSTOM_ID: w002
+:PRIORITY: P1
+:SOURCE: operator
+:CREATED: 2026-09-16
+:END:
+
+- Specification :: [[file:../specs/002-marketplace-prep/spec.org][W002 - marketplace prep skeleton]]
+- Validation :: [[file:../specs/002-marketplace-prep/validation.org][W002 - preparation checks]]
+
+* Foundation - today-note-custom-hotkey
 :PROPERTIES:
 :CUSTOM_ID: project-foundation
 :END:
 
-- *Vision:* [[file:VISION.md][Vision - daily-note-key-plugin]]
-- *Architecture:* [[file:ARCHITECTURE.md][Architecture - daily-note-key-plugin]]
-- *Review:* [[file:foundation-review.org][Foundation review - daily-note-key-plugin]]
+- *Vision:* [[file:VISION.md][Vision - today-note-custom-hotkey]]
+- *Architecture:* [[file:ARCHITECTURE.md][Architecture - today-note-custom-hotkey]]
+- *Review:* [[file:foundation-review.org][Foundation review - today-note-custom-hotkey]]
 - *Current status:* FOUNDATION REVIEW: PASS; operator sign-off APPROVED by project owner on 2026-09-08
 - *Sign-off authority:* Project owner
 - *Feature definition:* Authorized within the approved foundation boundaries.

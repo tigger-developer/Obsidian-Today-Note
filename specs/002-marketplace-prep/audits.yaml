@@ -1,0 +1,134 @@
+version: 1
+audits:
+    - readiness_check: delivery-code
+      work_item: W002
+      gate: implementation
+      session_id: 20260916_123736_8c0bde
+      harness: hermes
+      provider: nous
+      model: z-ai/glm-5.3
+      configured:
+        harness: hermes
+        provider: nous
+        model: z-ai/glm-5.3
+      external_round: 1
+      status: passed
+      updated: "2026-09-16T11:37:49Z"
+      revision: 76da511 plus W002 identifier and documentation changes, 2026-09-16
+      verdict: PROVISIONAL PASS
+      response: |-
+        GATE: implementation
+        REVISION: 76da511 plus W002 identifier and documentation changes, 2026-09-16
+        VERDICT: PROVISIONAL PASS
+
+        Findings and rationale:
+
+        Current GREEN evidence:
+
+        - OT002.1 (isolated package check) is GREEN with dated, concrete evidence: three-way cmp match, sentinel data.json preserved on reinstall, manifest ID parsed, temp vault used. Procedure matches the recorded operator scope (installer alignment with the new ID, no real vault, no network).
+        - OT002.2 (documentation and static review) is GREEN: oxlint, bash -n, jq manifest checks, git diff --check, and README-to-source comparison are recorded with dated evidence. Both OTs satisfy delivery-code readiness; no RTs or UTs are defined for this slice, which is appropriate for a metadata/documentation change with no runtime behaviour change.
+
+        Scope conformance:
+
+        - manifest.json id = today-note-custom-hotkey; installer copies into .obsidian/plugins/today-note-custom-hotkey/; install-help.md, README, and spec.org all agree. AC002.1 satisfied.
+        - main.js and styles.css are unchanged, matching the operator's explicit "keep main.js" instruction and the spec's statement that the entry filename and stylesheet remain unchanged. No unauthorized runtime changes, no new dependencies, no Node/npm. AC002.2 satisfied.
+        - README does not claim marketplace availability or verified compatibility; minAppVersion is explicitly marked unverified in validation.org and retained in the backlog. No false compatibility claim.
+        - The W001 foundation inconsistencies, minAppVersion, licence, and Back-button API usage are explicitly recorded as backlog, not silently resolved. No scope creep found in the delta.
+
+        Provisional items (bounded, reversible follow-up only):
+
+        1. install.sh dry-run message is stale: it prints "would copy manifest.json and main.js" but omits styles.css, which the installer actually copies. This is a minor accuracy defect in operator-facing output introduced by this slice. Remediation: correct the dry-run message to list all three artefacts. Does not invalidate sign-off; documented behaviour in install-help.md remains correct.
+        2. validation.org OT002.1 records the temporary evidence path under /var/folders (a mktemp scratch directory). Retain or copy that durable evidence as the operator directs before closure; it is already bounded by the spec's one-temp-vault limit, so this is a record-keeping reminder, not a defect.
+
+        No blocking findings: no violated approved decision, standard, correctness defect, or security defect identified in the changed artefacts. The installer uses set -eo pipefail, quoted expansion, terminates options in style, validates the vault root, and avoids prohibited shell patterns. The plugin source was inspected in full during OT002.2; its unchanged state is consistent with the recorded scope.
+      history:
+        - readiness_check: delivery-code
+          cache_key: sha256:23ace7cf1c599b247a7c2034ada7e62dc69387b8f00964b71ebb811da2d0ced5
+          session_id: 20260916_123736_8c0bde
+          harness: hermes
+          provider: nous
+          model: z-ai/glm-5.3
+          evidence:
+            - path: /Users/tigger/.agents/sdlc/ARCHITECTURE.md
+              sha256: bd7a66ffd967010eefb8dc7abe64b059994c7b0f44ed5f5c30ec73e354f5b7f7
+              bytes: 8154
+            - path: /Users/tigger/.agents/sdlc/CODING.md
+              sha256: a69a5d3b7ce3604b093703d72ab0de1bb6d607f140baab17292d209054fe902f
+              bytes: 13502
+            - path: /Users/tigger/.agents/sdlc/DOCUMENTATION.md
+              sha256: bd32656992311c5b4da2f83ac154bfcb073a71fe987a8bf0d7618b05e7e5cf2c
+              bytes: 3994
+            - path: /Users/tigger/.agents/sdlc/PAIRING.md
+              sha256: ff55f47343dc2145c5299395a2c374fd63b4aaec0dfa06e12e159cca9d40f2a7
+              bytes: 5819
+            - path: /Users/tigger/.agents/sdlc/TESTING.md
+              sha256: 0eec894dcace96ac74733d841e5829a40633dc78b09b7ed3a8b6d9a47bb193cb
+              bytes: 15322
+            - path: /Users/tigger/.agents/sdlc/technologies/JAVASCRIPT.md
+              sha256: bdd055c0f688a752dd6e452da385a583c2c875be7249ece0bfd8200f33809acb
+              bytes: 7508
+            - path: /Users/tigger/.agents/sdlc/technologies/SHELL.md
+              sha256: c1a56e020ef7b66c166ef80346bc2df67a039c6145bbca38961a127cefad1fed
+              bytes: 11225
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/.sdlc/project.yaml
+              sha256: acf3033f902c870e563b4a0a5039843c37f03a660859f852303b1501a4c99ea0
+              bytes: 489
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/README.md
+              sha256: eae9451dba74c3d4a22262f397e4da887daa17bb08738106a271766a0c388739
+              bytes: 3817
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/docs/ARCHITECTURE.md
+              sha256: 812011175816e62a23206f5598d7fa850c21fabb77484245b3b98954c2368f07
+              bytes: 5886
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/docs/VISION.md
+              sha256: f3a18a3f09f95f2de8144c32371e0c5f820c09bce07119cfa99b9265aa230779
+              bytes: 3406
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/docs/install-help.md
+              sha256: 98a41d7114c477b3bbfa354e97640a474048bdd2381447d5e92cee337ac203e8
+              bytes: 713
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/main.js
+              sha256: dedbc1039a946ccc9c2dbd1035e0ef5efe0d704841451cfd92afee3bf2f1eacb
+              bytes: 3995
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/manifest.json
+              sha256: f5c4fe659abe5aba8efe64fd97ffe6971f875dea3bc059f2d8f5c581703b5c5c
+              bytes: 260
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/scripts/install.sh
+              sha256: af454a017450d42788833746527f9dca3f7af1422fc60fba9e02959514b4b058
+              bytes: 1908
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/specs/002-marketplace-prep/spec.org
+              sha256: 7f738ebb99eb382d013c498b94f3147590d39ab65acd1b16f8c88fef8614ef8f
+              bytes: 5124
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/specs/002-marketplace-prep/validation.org
+              sha256: c1e8c4517d50ec47632d011d68b50c3b80308820a11eb2ac4dc5664158ad6cf8
+              bytes: 2097
+            - path: /Users/tigger/code/tigoss/obsidian-today-note/styles.css
+              sha256: 3f4ff236c94e0f8fb801a099d313912fea77745c9da3c5c30c1a4b3f10b31471
+              bytes: 55
+          round: 1
+          revision: 76da511 plus W002 identifier and documentation changes, 2026-09-16
+          verdict: PROVISIONAL PASS
+          response: |-
+            GATE: implementation
+            REVISION: 76da511 plus W002 identifier and documentation changes, 2026-09-16
+            VERDICT: PROVISIONAL PASS
+
+            Findings and rationale:
+
+            Current GREEN evidence:
+
+            - OT002.1 (isolated package check) is GREEN with dated, concrete evidence: three-way cmp match, sentinel data.json preserved on reinstall, manifest ID parsed, temp vault used. Procedure matches the recorded operator scope (installer alignment with the new ID, no real vault, no network).
+            - OT002.2 (documentation and static review) is GREEN: oxlint, bash -n, jq manifest checks, git diff --check, and README-to-source comparison are recorded with dated evidence. Both OTs satisfy delivery-code readiness; no RTs or UTs are defined for this slice, which is appropriate for a metadata/documentation change with no runtime behaviour change.
+
+            Scope conformance:
+
+            - manifest.json id = today-note-custom-hotkey; installer copies into .obsidian/plugins/today-note-custom-hotkey/; install-help.md, README, and spec.org all agree. AC002.1 satisfied.
+            - main.js and styles.css are unchanged, matching the operator's explicit "keep main.js" instruction and the spec's statement that the entry filename and stylesheet remain unchanged. No unauthorized runtime changes, no new dependencies, no Node/npm. AC002.2 satisfied.
+            - README does not claim marketplace availability or verified compatibility; minAppVersion is explicitly marked unverified in validation.org and retained in the backlog. No false compatibility claim.
+            - The W001 foundation inconsistencies, minAppVersion, licence, and Back-button API usage are explicitly recorded as backlog, not silently resolved. No scope creep found in the delta.
+
+            Provisional items (bounded, reversible follow-up only):
+
+            1. install.sh dry-run message is stale: it prints "would copy manifest.json and main.js" but omits styles.css, which the installer actually copies. This is a minor accuracy defect in operator-facing output introduced by this slice. Remediation: correct the dry-run message to list all three artefacts. Does not invalidate sign-off; documented behaviour in install-help.md remains correct.
+            2. validation.org OT002.1 records the temporary evidence path under /var/folders (a mktemp scratch directory). Retain or copy that durable evidence as the operator directs before closure; it is already bounded by the spec's one-temp-vault limit, so this is a record-keeping reminder, not a defect.
+
+            No blocking findings: no violated approved decision, standard, correctness defect, or security defect identified in the changed artefacts. The installer uses set -eo pipefail, quoted expansion, terminates options in style, validates the vault root, and avoids prohibited shell patterns. The plugin source was inspected in full during OT002.2; its unchanged state is consistent with the recorded scope.
+          updated: "2026-09-16T11:37:34Z"

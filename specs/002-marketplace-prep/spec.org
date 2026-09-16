@@ -1,0 +1,113 @@
+#+TITLE: W002 - marketplace prep
+#+STARTUP: overview
+#+OPTIONS: toc:2 num:nil
+
+* Objective and authority
+
+Prepare the existing one-note plugin for the Obsidian community directory.
+This is a *paired skeleton*, expanded as the operator authorizes each slice.
+
+- Operator decisions, 2026-09-16 :: Use plugin ID =today-note-custom-hotkey=;
+  keep GitHub repository =tigger-developer/Obsidian-Today-Note=; group marketplace
+  preparation here; update README and prepare manifest and =main.js=.
+- Entry filename :: The operator explicitly confirmed *keep main.js*.
+- Baseline :: [[file:../../docs/VISION.md][Vision]],
+  [[file:../../docs/ARCHITECTURE.md][Architecture]], and
+  [[file:../001-today-note-access/spec.org][W001 - fixed-note access]].
+- History :: The former ID was =daily-note-key-plugin=. The ID edits began
+  before the operator requested this skeleton; this record does not imply
+  that a skeleton existed before those edits.
+
+* Current slice
+
+- Align the *manifest and installer directory* with the chosen plugin ID.
+- Write a *user-facing README* with setup, opening, missing-note behaviour,
+  privacy, installation, and the implications for existing local installations.
+- Retain the existing display name =Daily Note Key=, version =0.1.0=, and
+  command suffix =open-today-note=.
+- Keep =main.js= as the maintained entry artefact. Preparing it means inspecting
+  and linting the current source; no runtime change is required for an ID rename.
+- Preserve the one-note behaviour, portable host APIs, and no-Node/npm tooling.
+- Do not publish a release, submit the listing, or install into a real vault
+  as part of this preparation slice.
+
+* Acceptance criteria for the current slice
+
+** AC002.1 - consistent package identity :ac:
+:PROPERTIES:
+:CUSTOM_ID: ac002-1
+:END:
+
+The plugin identifies as =today-note-custom-hotkey= and the installer places
+the three release artefacts in the matching directory. The repository identity
+is unchanged. Covered by [[#ot002-1][OT002.1 - isolated package check]].
+
+** AC002.2 - usable preparation documentation :ac:
+:PROPERTIES:
+:CUSTOM_ID: ac002-2
+:END:
+
+The README describes the current controls, manual setup, privacy, and ID
+transition without claiming marketplace availability or verified compatibility.
+Covered by [[#ot002-2][OT002.2 - documentation and static review]].
+
+* Verification
+
+** OT002.1 - isolated package check :testdef:
+:PROPERTIES:
+:CUSTOM_ID: ot002-1
+:END:
+
+- Covers :: [[#ac002-1][AC002.1 - consistent package identity]].
+- Procedure :: Create a temporary vault with =.obsidian=, run the interactive
+  installer with its path, and compare =main.js=, =manifest.json=, and
+  =styles.css= with repository originals. Repeat installation with a sentinel
+  =data.json= and ensure settings are preserved. Parse the copied manifest ID.
+- Expected :: All three files match, ID equals the destination directory,
+  and settings survive repeat installation.
+- Bounds :: One temporary vault; no real user vault changes; no network.
+
+** OT002.2 - documentation and static review :testdef:
+:PROPERTIES:
+:CUSTOM_ID: ot002-2
+:END:
+
+- Covers :: [[#ac002-2][AC002.2 - usable preparation documentation]].
+- Procedure :: Compare README instructions with the current source and
+  installer; run =sanitize=, =oxlint main.js=, =bash -n scripts/install.sh=,
+  JSON parsing, and =git diff --check=.
+- Expected :: Instructions match the implemented controls; static checks pass.
+- Limits :: No host behaviour is established by this review. W001 host
+  validation remains separate. No persistent tests or browser harness are
+  warranted for this metadata and documentation slice.
+
+* Compatibility and design
+
+The new ID uses a new plugin directory and command namespace. Existing local
+users disable the old installation, enable the new one, select the note, and
+assign the hotkey again. The installer does not migrate or delete old settings.
+The source entry point and stylesheet remain unchanged. There are no new
+dependencies, network calls, note writes, or access permissions.
+
+* Marketplace preparation backlog
+
+These assessment items are retained here for subsequent paired work; they are
+not evidence of publication readiness or authorization to publish.
+
+- Add the MIT licence file required by the existing foundation decision.
+- Establish the minimum Obsidian version and validate on macOS and iOS.
+  The current =minAppVersion= value =1.0.0= remains unverified.
+- Finish the outstanding W001 host observations.
+- Review the existing settings Back button's =app.setting.close()= API usage.
+- Reconcile older foundation wording about publication, settings ownership,
+  and copy-only deployment before closing marketplace preparation.
+- Prepare a version-matched GitHub release with the three attached artefacts,
+  verify name/ID availability, and address the community directory scan.
+- Obtain operator release/submission and closure decisions.
+
+* Evidence
+
+- [[file:validation.org][Preparation checks]]
+- [[file:audits.yaml][Independent review record]]
+- [[https://docs.obsidian.md/Reference/Manifest][Obsidian manifest contract]]
+- [[https://docs.obsidian.md/plugins/releasing/submit-plugin][Obsidian submission guide]]

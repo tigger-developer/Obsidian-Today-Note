@@ -136,7 +136,7 @@ Obsidian's public vault APIs.
 - *Requirement* :: Deployment boundary
 - *Procedure* :: Install into an isolated directory containing `.obsidian`.
 - *Expected result* :: The installer copies the three plugin artefacts into
-  `.obsidian/plugins/daily-note-key-plugin/`.
+  `.obsidian/plugins/today-note-custom-hotkey/`.
 
 * Solution design
 

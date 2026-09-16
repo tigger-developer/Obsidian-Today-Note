@@ -2,7 +2,7 @@
 
 `make install` runs `./scripts/install.sh`, which copies the existing `main.js`,
 `manifest.json`, and `styles.css` into the selected Obsidian vault at
-`.obsidian/plugins/daily-note-key-plugin/`.
+`.obsidian/plugins/today-note-custom-hotkey/`.
 
 The repository does not build or bundle the plugin. The three plugin files must
 already exist before installation.

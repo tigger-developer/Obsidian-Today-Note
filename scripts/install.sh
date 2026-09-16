@@ -49,10 +49,10 @@ if [[ ! -d "$vault_root/.obsidian" ]]; then
 fi
 
 vault_root="$(cd "$vault_root" && pwd -P)"
-plugin_dir="$vault_root/.obsidian/plugins/daily-note-key-plugin"
+plugin_dir="$vault_root/.obsidian/plugins/today-note-custom-hotkey"
 
 if (( dry_run )); then
-    printf 'Dry run: would copy manifest.json and main.js to %s\n' "$plugin_dir"
+    printf 'Dry run: would copy manifest.json, main.js, and styles.css to %s\n' "$plugin_dir"
     exit 0
 fi
 
@@ -67,4 +67,4 @@ done
 
 mkdir -p "$plugin_dir"
 cp -f "$project_root/manifest.json" "$project_root/main.js" "$project_root/styles.css" "$plugin_dir/"
-printf 'Installed daily-note-key-plugin in %s\n' "$plugin_dir"
+printf 'Installed today-note-custom-hotkey in %s\n' "$plugin_dir"

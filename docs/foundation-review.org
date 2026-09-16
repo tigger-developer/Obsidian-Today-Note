@@ -1,4 +1,4 @@
-#+TITLE: Foundation Review - daily-note-key-plugin
+#+TITLE: Foundation Review - today-note-custom-hotkey
 #+STARTUP: overview
 
 * Foundation review

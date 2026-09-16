@@ -4,7 +4,7 @@
 
 ## Architectural boundary
 
-`daily-note-key-plugin` is an Obsidian community-plugin-style package running
+`today-note-custom-hotkey` is an Obsidian community-plugin-style package running
 inside Obsidian on macOS and iOS. Obsidian owns the vault, note rendering,
 editing interface, command palette, keyboard binding, plugin settings storage,
 and plugin lifecycle.

@@ -4,7 +4,7 @@
 
 ## Purpose
 
-`daily-note-key-plugin` provides a dependable shortcut to one user-selected
+`today-note-custom-hotkey` provides a dependable shortcut to one user-selected
 note in an Obsidian vault. The note is a single fixed file chosen by the user;
 it is not an Obsidian Daily Note, is not dated, and does not change name.
 
