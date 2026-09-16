@@ -11,6 +11,8 @@ This is a *paired skeleton*, expanded as the operator authorizes each slice.
   keep GitHub repository =tigger-developer/Obsidian-Today-Note=; group marketplace
   preparation here; update README and prepare manifest and =main.js=.
 - Entry filename :: The operator explicitly confirmed *keep main.js*.
+- Author identity :: The operator specified =Tadhg O'Brien= throughout project
+  attribution, including the manifest, README and MIT copyright notice.
 - Release decision, 2026-09-16 :: The operator selected plugin version =1.0.1=
   and authorized committing, pushing, and creating its GitHub release with
   the three Obsidian artefacts. Community-directory submission remains separate.

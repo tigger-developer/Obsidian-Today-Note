@@ -113,4 +113,4 @@ is resolved; no attestation is claimed for it.
 
 ## Licence
 
-[MIT](LICENSE). Copyright (c) 2026 Taḋg.
+[MIT](LICENSE). Copyright (c) 2026 Tadhg O'Brien.

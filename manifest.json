@@ -4,6 +4,6 @@
   "version": "1.0.2",
   "minAppVersion": "1.0.0",
   "description": "This is a very simple Obsidian plugin: a ribbon button and a configurable keyboard shortcut that open one pre-selected note. That is all.",
-  "author": "Taḋg",
+  "author": "Tadhg O'Brien",
   "isDesktopOnly": false
 }
