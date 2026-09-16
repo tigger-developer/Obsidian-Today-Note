@@ -1,6 +1,6 @@
 # Vision
 
-<!-- Version: 0.2.2 | Last updated: 2026-09-16 -->
+*Version 0.2.3. Last updated 2026-09-16.*
 
 ## Purpose
 
@@ -100,6 +100,8 @@ approval is recorded separately in that document.
 
 ## Document changelog
 
+- **0.2.3, 2026-09-16:** the version header is Markdown rather than an embedded
+  HTML comment, so it renders with the document.
 - **0.2.2, 2026-09-16:** releases are published by `make release` rather than by
   every push to `master`.
 - **0.2.1, 2026-09-16:** recorded the `minAppVersion` `1.13.0` support baseline

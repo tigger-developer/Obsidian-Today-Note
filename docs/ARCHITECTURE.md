@@ -1,6 +1,6 @@
 # Architecture
 
-<!-- Version: 0.3.2 | Last updated: 2026-09-16 -->
+*Version 0.3.3. Last updated 2026-09-16.*
 
 ## Architectural boundary
 
@@ -157,6 +157,8 @@ change specification.
 
 ## Document changelog
 
+- **0.3.3, 2026-09-16:** the version header is Markdown rather than an embedded
+  HTML comment, so it renders with the document.
 - **0.3.2, 2026-09-16:** moved release publication to the repository-owned
   `make release` entry point, leaving the workflow responsible only for
   verifying and attesting a published release.
