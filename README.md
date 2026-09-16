@@ -80,27 +80,41 @@ destination without copying files. The Bash installer is copy-only.
 `main.js` is the maintained plain-JavaScript entry file; no compilation, Node.js,
 or npm installation is needed. With `oxlint` installed, `make lint` checks it.
 
-The release files are the same three files listed above. A future GitHub release
-must attach them individually and use a tag matching `manifest.json`'s version.
+The release files are the same three files listed above. `make build` validates
+that they are present and that `manifest.json` carries an `x.y.z` version.
 
 Marketplace preparation is tracked in
 [W002 - marketplace prep](specs/002-marketplace-prep/spec.org).
 
+## Releasing
+
+Publish a release from a clean `master` that matches `origin/master`:
+
+```bash
+make release
+```
+
+The target runs `make lint`, validates the three plugin files, increments the
+manifest's patch version, commits it as `chore: release <version>`, pushes the
+commit and an annotated tag atomically, and creates the GitHub release with
+`main.js`, `manifest.json`, and `styles.css` attached. `LICENSE` remains in the
+repository. Use `VERSION=x.y.z make release` for a version other than the next
+patch, and `./scripts/release.sh --dry-run` to see what would be published
+without changing anything. Full options are in
+[Release help](docs/release-help.md).
+
+The release refuses to run when the branch is not `master`, the working tree is
+dirty, the local branch differs from `origin/master`, or the tag already exists.
+
 ## Release attestations
 
-The **Release and attest** GitHub Actions workflow runs on pushes to `master`.
-It increments the manifest's patch version by one, commits that version, and
-publishes a matching tag and release containing exactly `main.js`,
-`manifest.json`, and `styles.css`. It then verifies the attachments against the
-tagged source and attests them. `LICENSE` remains in the repository.
+The **Attest release** GitHub Actions workflow runs when a release is
+published. It checks out the release tag, verifies that the attachments are
+exactly the three installation files and that they match the tagged source byte
+for byte, then attests them. It cannot modify release attachments.
 
-The automated version commit does not trigger another release. Pull `master`
-after a release to obtain that commit before pushing further work. Each push
-produces one release, even when it contains several commits. Runs are serialized;
-a concurrent branch update can reject the release push without overwriting it.
-
-Manual dispatch accepts an existing release tag and performs only verification
-and attestation. That job has no permission to modify release attachments.
+Manual dispatch accepts an existing release tag and performs the same
+verification and attestation.
 
 The `1.0.1` manifest attachment was updated after tagging to correct its
 description. That release will fail the source comparison until the discrepancy

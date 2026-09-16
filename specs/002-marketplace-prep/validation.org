@@ -70,6 +70,40 @@ This verifies refusal guards and structure, not successful remote signing.
 =actionlint= was not installed. The live release has only the three requested
 attachments. No assets or tags were changed during these checks.
 
+* Release entry point
+
+** GREEN OT002.4 - release entry point checks :testdef:
+:PROPERTIES:
+:REVISION: 0ffbcde plus the W002 release entry point working-tree change
+:EVIDENCE: Both scripts pass bash -n and shellcheck; CLI contracts return the documented exits; an isolated clone with a bare remote and a substituted gh bumped 1.0.3 to 1.0.4, committed, tagged, pushed atomically and requested exactly the three files; every refusal condition exited non-zero without publishing.
+:END:
+
+Run on macOS, 2026-09-16. =bash -n= and =shellcheck= passed for
+=scripts/build.sh= and =scripts/release.sh=. =make build= reported valid
+artefacts at version =1.0.3=. For both scripts =--version= printed the script
+version, =--help= printed the documentation file, and an unknown option exited
+2.
+
+The remaining checks ran in a =mktemp -d= fixture holding a bare remote and a
+clone of this repository, with =gh= replaced on =PATH= by a recording
+substitute:
+
+- =--dry-run= reported the next version =1.0.4= and left =manifest.json= at
+  =1.0.3=.
+- An invalid =VERSION= value of =1.2= exited 2 without changing the repository.
+- A real run wrote =1.0.4= to the manifest, committed =chore: release 1.0.4=,
+  pushed the commit and annotated tag to the bare remote, and called
+  =gh release create 1.0.4 main.js manifest.json styles.css --verify-tag=.
+- Re-running for the existing tag exited 1.
+- A dirty working tree, a branch other than =master=, and a branch ahead of its
+  remote each exited 1 with the documented message.
+
+=yj= and =jq= confirmed that the workflow triggers on a published release and
+manual dispatch, exposes only the =attest= job, and grants that job
+=contents: read=, =id-token: write= and =attestations: write=. The fixture was
+removed with =trash=. No release, tag, or attestation was created on the real
+remote.
+
 * Limitations
 
 - Follow-up check, 2026-09-16 :: The installer dry-run output now lists all

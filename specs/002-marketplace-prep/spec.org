@@ -51,6 +51,15 @@ This is a *paired skeleton*, expanded as each slice is authorized.
   branch races fail safely without force-pushing. The release job alone receives
   =contents: write=; attestation retains its narrower permissions.
 
+- Release entry point decision, 2026-09-16 :: Releases are published by a
+  repository-owned =make release= target that validates the artefacts,
+  increments the manifest patch version or accepts an exact =VERSION=, commits,
+  tags, pushes, and creates the GitHub release. This supersedes the
+  push-triggered release above: the workflow no longer publishes on pushes to
+  =master= and only verifies and attests a published release. =make build=
+  validates the three artefacts, which is the whole build for a plugin with no
+  compilation step.
+
 - Align the *manifest and installer directory* with the chosen plugin ID.
 - Write a *user-facing README* with setup, opening, missing-note behaviour,
   privacy, installation, and the implications for existing local installations.
@@ -84,7 +93,37 @@ The README describes the current controls, manual setup, privacy, and ID
 transition without claiming marketplace availability or verified compatibility.
 Covered by [[#ot002-2][OT002.2 - documentation and static review]].
 
+** AC002.4 - operator-invoked release entry point :ac:
+:PROPERTIES:
+:CUSTOM_ID: ac002-4
+:END:
+
+=make release= publishes exactly one GitHub release carrying =main.js=,
+=manifest.json= and =styles.css=, with the manifest version, the annotated tag
+and the release title in agreement. It refuses to publish from a branch other
+than =master=, from a dirty working tree, from a branch that differs from
+=origin/master=, or for a tag that already exists, and it changes nothing under
+=--dry-run=. Signing remains with the attestation workflow. Covered by
+[[#ot002-4][OT002.4 - release entry point checks]].
+
 * Verification
+
+** OT002.4 - release entry point checks :testdef:
+:PROPERTIES:
+:CUSTOM_ID: ot002-4
+:END:
+
+- Covers :: [[#ac002-4][AC002.4 - operator-invoked release entry point]].
+- Procedure :: Syntax-check and lint both scripts. Exercise =--help=,
+  =--version= and an invalid option. In a temporary clone with a temporary bare
+  remote and a substituted =gh=, run the dry run, an invalid =VERSION=, a real
+  release, and each refusal condition. Parse the workflow YAML for its triggers,
+  jobs and permissions.
+- Expected :: The dry run changes nothing; a release bumps the patch version,
+  commits, tags, pushes atomically and requests a release with exactly the three
+  files; each refusal exits non-zero without publishing.
+- Limits :: No release is created on GitHub and no attestation is produced.
+  Live publication and signing remain user tests against the real remote.
 
 ** OT002.3 - attestation workflow checks :testdef:
 :PROPERTIES:

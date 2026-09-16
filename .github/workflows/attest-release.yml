@@ -1,70 +1,25 @@
-# ABOUTME: Publishes the next patch release on master pushes and attests three assets.
-# ABOUTME: Also supports manually attesting an existing source-matching release.
-name: Release and attest
+# ABOUTME: Attests the three installation files of a published GitHub release.
+# ABOUTME: Releases are created by make release; this workflow only verifies and signs.
+name: Attest release
 
 on:
-  push:
-    branches: [master]
+  release:
+    types: [published]
   workflow_dispatch:
     inputs:
       release_tag:
         description: Published release version (x.y.z)
         required: true
         type: string
-        default: '1.0.1'
 
 permissions: {}
 
 concurrency:
-  group: release-and-attest
+  group: attest-release
   cancel-in-progress: false
 
 jobs:
-  release:
-    if: github.event_name == 'push'
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    permissions:
-      contents: write
-    outputs:
-      version: ${{ steps.publish.outputs.version }}
-    steps:
-      - name: Check out the current release branch
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-        with:
-          ref: master
-          fetch-depth: 0
-      - name: Increment patch version and publish three installation files
-        id: publish
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-        run: |
-          set -eo pipefail
-          version=$(jq -er '.version | select(test("^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$")) |
-            split(".") | .[2] = ((.[2] | tonumber) + 1 | tostring) | join(".")' manifest.json)
-          versioned_manifest=$(mktemp)
-          jq --arg version "$version" '.version = $version' manifest.json > "$versioned_manifest"
-          cp "$versioned_manifest" manifest.json
-          for asset in main.js manifest.json styles.css; do
-            test -s "$asset"
-          done
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add manifest.json
-          git commit -m "chore: release $version"
-          git tag -a "$version" -m "Daily Note Key $version"
-          git push --atomic origin HEAD:refs/heads/master "refs/tags/$version"
-          gh release create "$version" main.js manifest.json styles.css \
-            --verify-tag --title "Daily Note Key $version" \
-            --notes 'A ribbon button and configurable keyboard shortcut that open one pre-selected note.'
-          printf 'version=%s\n' "$version" >> "$GITHUB_OUTPUT"
-          # GITHUB_TOKEN pushes do not trigger another push workflow run.
-
   attest:
-    needs: release
-    if: ${{ always() && (needs.release.result == 'success' || github.event_name == 'workflow_dispatch') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
@@ -75,13 +30,13 @@ jobs:
       - name: Check out the release tag
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: refs/tags/${{ needs.release.outputs.version || inputs.release_tag }}
+          ref: refs/tags/${{ github.event.release.tag_name || inputs.release_tag }}
           fetch-depth: 0
           persist-credentials: false
       - name: Verify release files before signing
         shell: bash
         env:
-          RELEASE_TAG: ${{ needs.release.outputs.version || inputs.release_tag }}
+          RELEASE_TAG: ${{ github.event.release.tag_name || inputs.release_tag }}
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |

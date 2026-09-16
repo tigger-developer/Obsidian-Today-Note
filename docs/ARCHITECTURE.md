@@ -1,6 +1,6 @@
 # Architecture
 
-<!-- Version: 0.3.1 | Last updated: 2026-09-16 -->
+<!-- Version: 0.3.2 | Last updated: 2026-09-16 -->
 
 ## Architectural boundary
 
@@ -54,9 +54,10 @@ The flow is:
 - **Build tooling:** no project-local build or package-manager step. `main.js`
   is the maintained plugin artefact and `oxlint` is the only selected static
   check. Node.js and npm are not part of the project architecture.
-- **Release tooling:** a GitHub Actions workflow using pinned action revisions,
-  `jq`, and the GitHub CLI. It runs outside the plugin runtime and adds no
-  plugin dependency.
+- **Release tooling:** a repository-owned `make release` entry point in Bash
+  using `jq` and the GitHub CLI, and a GitHub Actions workflow with pinned
+  action revisions that attests published releases. Both run outside the plugin
+  runtime and add no plugin dependency.
 - **Testing:** lightweight source-level linting and bounded user testing in
   Obsidian are proportionate. A browser harness, compiler, package manager, or
   new test framework is not part of the foundation.
@@ -81,19 +82,23 @@ the public, portable host representation.
 
 ## Release and attestation boundary
 
-Publication runs entirely outside the plugin runtime, on GitHub's hosted
-infrastructure:
+Publishing is an explicit operator action; signing is automatic and separate:
 
-- A push to `master` triggers a release job that increments the manifest patch
-  version, commits it, pushes an annotated tag atomically, and publishes a
-  release carrying exactly `main.js`, `manifest.json`, and `styles.css`.
-- A dependent attestation job checks out the published tag without persisting
-  checkout credentials, verifies the tag, the manifest version, the exact asset
-  set, and byte equality between checkout, tag, and downloaded assets, then
-  attests those three files.
-- Job permissions are separated: only the release job receives write access to
-  repository contents; the attestation job holds read, identity-token, and
-  attestation permissions and cannot alter release assets.
+- `make release` validates the artefacts, increments the manifest patch version
+  or accepts an exact `VERSION`, commits it, pushes an annotated tag atomically,
+  and publishes a release carrying exactly `main.js`, `manifest.json`, and
+  `styles.css`. It refuses to run from a branch other than `master`, from a
+  dirty working tree, from a branch that differs from its remote, or for a tag
+  that already exists.
+- Publishing a release triggers an attestation job on GitHub's hosted
+  infrastructure. It checks out the published tag without persisting checkout
+  credentials, verifies the tag, the manifest version, the exact asset set, and
+  byte equality between checkout, tag, and downloaded assets, then attests those
+  three files.
+- Credentials are separated: the release action uses the operator's own
+  authenticated Git and GitHub CLI access, while the attestation job holds only
+  read, identity-token, and attestation permissions and cannot alter release
+  assets.
 - Verification failure must reject the release rather than relax the
   comparison.
 
@@ -138,9 +143,10 @@ deployment boundary and requires a product decision that has not been taken.
 - **Minimal dependencies over convenience packages:** the build remains
   smaller and reduces supply-chain exposure; formatting and linting tools are
   selected only when they can be pinned and maintained.
-- **Release per push over curated releases:** every `master` push produces one
-  attested patch release, which keeps published bytes traceable to tagged
-  source at the cost of releases for documentation-only changes.
+- **Explicit release over release per push:** publishing is a deliberate
+  `make release` invocation rather than a consequence of pushing, so
+  documentation-only changes do not produce releases; the cost is that a
+  release is a remembered step rather than an automatic one.
 
 ## Foundation status
 
@@ -151,6 +157,9 @@ change specification.
 
 ## Document changelog
 
+- **0.3.2, 2026-09-16:** moved release publication to the repository-owned
+  `make release` entry point, leaving the workflow responsible only for
+  verifying and attesting a published release.
 - **0.3.1, 2026-09-16:** recorded the `minAppVersion` `1.13.0` support
   baseline.
 - **0.3.0, 2026-09-16:** corrected the settings component and data boundary to

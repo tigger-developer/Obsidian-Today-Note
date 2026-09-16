@@ -1,6 +1,6 @@
 # Vision
 
-<!-- Version: 0.2.1 | Last updated: 2026-09-16 -->
+<!-- Version: 0.2.2 | Last updated: 2026-09-16 -->
 
 ## Purpose
 
@@ -65,9 +65,9 @@ is the only distribution route.
 - Supported platforms are macOS and iOS using the latest stable Obsidian
   versions at release time.
 - Submission and public-listing decisions remain with the project owner.
-- Each push to `master` publishes one next-patch GitHub release carrying
-  `main.js`, `manifest.json`, and `styles.css`, and attests those files. Release
-  mechanics are described in the README.
+- Releases are published deliberately with `make release`, which carries
+  `main.js`, `manifest.json`, and `styles.css`; GitHub then attests those files.
+  Release mechanics are described in the README.
 - Vault backup and plugin rollback remain the user's responsibility through
   Obsidian's normal vault and plugin mechanisms.
 - The plugin has no service availability or telemetry obligation.
@@ -100,6 +100,8 @@ approval is recorded separately in that document.
 
 ## Document changelog
 
+- **0.2.2, 2026-09-16:** releases are published by `make release` rather than by
+  every push to `master`.
 - **0.2.1, 2026-09-16:** recorded the `minAppVersion` `1.13.0` support baseline
   and that compatibility testing against it is outstanding.
 - **0.2.0, 2026-09-16:** recorded the delivered behaviour, corrected the
